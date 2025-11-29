@@ -45,13 +45,10 @@ export function Footer() {
               Horaires
             </h3>
             <div className="space-y-2 text-sm text-muted-foreground">
-              <p>Lundi : 15h00 - 2h00</p>
-              <p>Mardi : 15h00 - 2h00</p>
-              <p>Mercredi : 15h00 - 2h00</p>
-              <p>Jeudi : 15h00 - 2h00</p>
-              <p>Vendredi : 15h00 - 2h00</p>
-              <p>Samedi : 15h00 - 2h00</p>
-              <p>Dimanche : 15h00 - 2h00</p>
+              <p className="font-medium text-foreground">Ouverture : 15h00</p>
+              <p>Cuisine : jusqu'à 1h00</p>
+              <p>Lounge : jusqu'à 2h00</p>
+              <p className="text-xs text-muted-foreground/70 mt-2">Tous les jours</p>
             </div>
           </div>
 
