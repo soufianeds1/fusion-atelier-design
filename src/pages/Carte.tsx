@@ -125,6 +125,12 @@ const menuCategories = [
       { name: "Piña Colada", description: "Ananas, lait de coco", price: "10€" },
     ],
   },
+  {
+    id: "lounge",
+    name: "Lounge",
+    description: "Notre carte chicha",
+    items: [],
+  },
 ];
 
 const contorni = [
@@ -136,7 +142,29 @@ const contorni = [
   "Riz sauce champignons",
 ];
 
-const categories = ["antipasti", "carne", "pesce", "pollo", "pasta", "pizze", "dolce", "boissons", "mocktails"];
+const categories = ["antipasti", "carne", "pesce", "pollo", "pasta", "pizze", "dolce", "boissons", "mocktails", "lounge"];
+
+const hookahMenu = {
+  happyHour: {
+    title: "Happy Hour 15h-18h",
+    items: [
+      { name: "Hookah + Soft", price: "20€" },
+      { name: "Hookah + Soft Premium", price: "25€" },
+      { name: "Hookah Quasar + Soft", price: "30€" },
+      { name: "Hookah Quasar + Soft Premium", price: "35€" },
+    ],
+  },
+  soiree: {
+    title: "Formule Soirée",
+    items: [
+      { name: "Hookah + Soft", price: "25€" },
+      { name: "Hookah + Soft Premium", price: "30€" },
+      { name: "Hookah Quasar + Soft", price: "35€" },
+      { name: "Hookah Quasar + Soft Premium", price: "40€" },
+    ],
+  },
+  saveurs: ["Hawai", "Love 66", "Mi Amor", "Lady Killer", "Menthe", "Pomme"],
+};
 
 const Carte = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
@@ -211,26 +239,72 @@ const Carte = () => {
                   </div>
 
                   {/* Items */}
-                  <div className="space-y-6">
-                    {category.items.map((item) => (
-                      <div
-                        key={item.name}
-                        className="group flex justify-between items-start gap-4 pb-6 border-b border-border/50 hover:border-accent/30 transition-colors"
-                      >
-                        <div className="flex-1">
-                          <h3 className="font-display text-xl font-medium text-foreground group-hover:text-accent transition-colors">
-                            {item.name}
-                          </h3>
-                          <p className="text-muted-foreground text-sm mt-1">
-                            {item.description}
-                          </p>
+                  {category.id === "lounge" ? (
+                    <div className="space-y-10">
+                      {/* Happy Hour */}
+                      <div className="p-6 bg-card border border-accent/30 rounded-lg">
+                        <h4 className="font-display text-xl font-semibold text-accent mb-6 text-center">
+                          {hookahMenu.happyHour.title}
+                        </h4>
+                        <div className="space-y-4">
+                          {hookahMenu.happyHour.items.map((item) => (
+                            <div key={item.name} className="flex justify-between items-center pb-3 border-b border-border/50">
+                              <span className="text-foreground font-medium">{item.name}</span>
+                              <span className="text-accent font-display text-lg font-semibold">{item.price}</span>
+                            </div>
+                          ))}
                         </div>
-                        <span className="text-accent font-display text-xl font-semibold whitespace-nowrap">
-                          {item.price}
-                        </span>
                       </div>
-                    ))}
-                  </div>
+
+                      {/* Formule Soirée */}
+                      <div className="p-6 bg-card border border-border rounded-lg">
+                        <h4 className="font-display text-xl font-semibold text-foreground mb-6 text-center">
+                          {hookahMenu.soiree.title}
+                        </h4>
+                        <div className="space-y-4">
+                          {hookahMenu.soiree.items.map((item) => (
+                            <div key={item.name} className="flex justify-between items-center pb-3 border-b border-border/50">
+                              <span className="text-foreground font-medium">{item.name}</span>
+                              <span className="text-accent font-display text-lg font-semibold">{item.price}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Saveurs */}
+                      <div className="p-6 bg-muted/50 border border-border rounded-lg text-center">
+                        <p className="text-accent font-semibold mb-4">+5€ Les Saveurs</p>
+                        <div className="flex flex-wrap justify-center gap-2">
+                          {hookahMenu.saveurs.map((saveur) => (
+                            <span key={saveur} className="px-3 py-1 bg-card border border-border rounded-sm text-muted-foreground text-sm">
+                              {saveur}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-6">
+                      {category.items.map((item) => (
+                        <div
+                          key={item.name}
+                          className="group flex justify-between items-start gap-4 pb-6 border-b border-border/50 hover:border-accent/30 transition-colors"
+                        >
+                          <div className="flex-1">
+                            <h3 className="font-display text-xl font-medium text-foreground group-hover:text-accent transition-colors">
+                              {item.name}
+                            </h3>
+                            <p className="text-muted-foreground text-sm mt-1">
+                              {item.description}
+                            </p>
+                          </div>
+                          <span className="text-accent font-display text-xl font-semibold whitespace-nowrap">
+                            {item.price}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
 
                   {/* Contorni info after Pollo section */}
                   {category.id === "pollo" && (
