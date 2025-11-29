@@ -9,9 +9,9 @@ export function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <Link to="/" className="inline-block">
-              <span className="font-display text-3xl font-semibold text-foreground">
-                Morello <span className="text-accent">Paris</span>
-              </span>
+            <span className="font-display text-3xl font-semibold text-foreground">
+              LE <span className="text-accent">MORELLO</span>
+            </span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
               Un voyage culinaire hors du temps, où la cuisine italienne rencontre l'élégance parisienne.
@@ -103,7 +103,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-            <p>© 2024 Morello Paris. Tous droits réservés.</p>
+            <p>© 2024 LE MORELLO. Tous droits réservés.</p>
             <div className="flex gap-6">
               <span>Accès PMR</span>
               <span>Terrasse</span>
