@@ -22,7 +22,7 @@ export function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <span className="font-display text-2xl md:text-3xl font-semibold text-foreground">
-              L'<span className="text-accent">Éclipse</span>
+              Morello <span className="text-accent">Paris</span>
             </span>
           </Link>
 

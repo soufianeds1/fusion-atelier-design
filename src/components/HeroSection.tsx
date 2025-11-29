@@ -9,7 +9,7 @@ export function HeroSection() {
       <div className="absolute inset-0">
         <img
           src={heroImage}
-          alt="L'Éclipse - Intérieur du restaurant"
+          alt="Morello Paris - Intérieur du restaurant"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
@@ -24,7 +24,7 @@ export function HeroSection() {
             className="text-accent uppercase tracking-[0.3em] text-sm md:text-base font-medium opacity-0 animate-fade-in"
             style={{ animationDelay: "0.2s" }}
           >
-            Restaurant Italien • Paris
+            Restaurant Italien • Paris 8ème
           </p>
 
           {/* Main Headline */}

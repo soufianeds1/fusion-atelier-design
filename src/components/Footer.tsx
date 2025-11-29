@@ -10,7 +10,7 @@ export function Footer() {
           <div className="space-y-4">
             <Link to="/" className="inline-block">
               <span className="font-display text-3xl font-semibold text-foreground">
-                L'<span className="text-accent">Éclipse</span>
+                Morello <span className="text-accent">Paris</span>
               </span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
@@ -44,17 +44,14 @@ export function Footer() {
               <Clock size={18} className="text-accent" />
               Horaires
             </h3>
-            <div className="space-y-3 text-sm text-muted-foreground">
-              <div>
-                <p className="font-medium text-foreground">Déjeuner</p>
-                <p>Lundi - Vendredi : 12h00 - 15h00</p>
-              </div>
-              <div>
-                <p className="font-medium text-foreground">Dîner</p>
-                <p>Lundi - Jeudi : 19h00 - 01h00</p>
-                <p>Vendredi - Samedi : 19h00 - 02h00</p>
-                <p>Dimanche : 19h00 - 00h00</p>
-              </div>
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p>Lundi : 15h00 - 2h00</p>
+              <p>Mardi : 15h00 - 2h00</p>
+              <p>Mercredi : 15h00 - 2h00</p>
+              <p>Jeudi : 15h00 - 2h00</p>
+              <p>Vendredi : 15h00 - 2h00</p>
+              <p>Samedi : 15h00 - 2h00</p>
+              <p>Dimanche : 15h00 - 2h00</p>
             </div>
           </div>
 
@@ -62,19 +59,19 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="font-display text-lg font-semibold text-foreground">Contact</h3>
             <div className="space-y-3 text-sm text-muted-foreground">
-              <a href="tel:+33123456789" className="flex items-center gap-2 hover:text-accent transition-colors">
+              <a href="tel:0753236352" className="flex items-center gap-2 hover:text-accent transition-colors">
                 <Phone size={16} className="text-accent" />
-                +33 1 23 45 67 89
+                07 53 23 63 52
               </a>
-              <a href="mailto:contact@leclipse.fr" className="flex items-center gap-2 hover:text-accent transition-colors">
+              <a href="mailto:contact@morello-paris.fr" className="flex items-center gap-2 hover:text-accent transition-colors">
                 <Mail size={16} className="text-accent" />
-                contact@leclipse.fr
+                contact@morello-paris.fr
               </a>
               <div className="flex items-start gap-2">
                 <MapPin size={16} className="text-accent mt-0.5" />
                 <span>
-                  42 Rue de la Gastronomie<br />
-                  75008 Paris, France
+                  20 Rue Clapeyron<br />
+                  75008 Paris
                 </span>
               </div>
             </div>
@@ -106,7 +103,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-            <p>© 2024 L'Éclipse Paris. Tous droits réservés.</p>
+            <p>© 2024 Morello Paris. Tous droits réservés.</p>
             <div className="flex gap-6">
               <span>Accès PMR</span>
               <span>Terrasse</span>

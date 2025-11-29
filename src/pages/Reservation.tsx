@@ -101,7 +101,7 @@ const Reservation = () => {
                       value={formData.phone}
                       onChange={handleChange}
                       className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:border-accent focus:outline-none transition-colors"
-                      placeholder="+33 6 12 34 56 78"
+                      placeholder="06 12 34 56 78"
                     />
                   </div>
 
@@ -133,11 +133,11 @@ const Reservation = () => {
                         className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:border-accent focus:outline-none transition-colors"
                       >
                         <option value="">Choisir</option>
-                        <option value="12:00">12:00</option>
-                        <option value="12:30">12:30</option>
-                        <option value="13:00">13:00</option>
-                        <option value="13:30">13:30</option>
-                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="15:30">15:30</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
                         <option value="19:00">19:00</option>
                         <option value="19:30">19:30</option>
                         <option value="20:00">20:00</option>
@@ -145,6 +145,10 @@ const Reservation = () => {
                         <option value="21:00">21:00</option>
                         <option value="21:30">21:30</option>
                         <option value="22:00">22:00</option>
+                        <option value="22:30">22:30</option>
+                        <option value="23:00">23:00</option>
+                        <option value="23:30">23:30</option>
+                        <option value="00:00">00:00</option>
                       </select>
                     </div>
                     <div>
@@ -198,18 +202,17 @@ const Reservation = () => {
                   <div className="space-y-6 text-muted-foreground">
                     <div>
                       <h3 className="text-foreground font-medium mb-2">Horaires</h3>
-                      <p>Déjeuner : Lundi - Vendredi, 12h00 - 15h00</p>
-                      <p>Dîner : Tous les jours, 19h00 - 01h00/02h00</p>
+                      <p>Ouvert tous les jours de 15h00 à 2h00</p>
                     </div>
                     <div>
                       <h3 className="text-foreground font-medium mb-2">Contact Direct</h3>
-                      <a href="tel:+33123456789" className="flex items-center gap-2 hover:text-accent transition-colors">
+                      <a href="tel:0753236352" className="flex items-center gap-2 hover:text-accent transition-colors">
                         <Phone size={16} className="text-accent" />
-                        +33 1 23 45 67 89
+                        07 53 23 63 52
                       </a>
-                      <a href="mailto:reservation@leclipse.fr" className="flex items-center gap-2 mt-2 hover:text-accent transition-colors">
+                      <a href="mailto:contact@morello-paris.fr" className="flex items-center gap-2 mt-2 hover:text-accent transition-colors">
                         <Mail size={16} className="text-accent" />
-                        reservation@leclipse.fr
+                        contact@morello-paris.fr
                       </a>
                     </div>
                     <div>
@@ -233,12 +236,12 @@ const Reservation = () => {
                 {/* Map Placeholder */}
                 <div className="bg-card border border-border rounded-lg p-8 text-center">
                   <p className="text-muted-foreground mb-4">
-                    42 Rue de la Gastronomie<br />
-                    75008 Paris, France
+                    20 Rue Clapeyron<br />
+                    75008 Paris
                   </p>
                   <Button variant="outline" asChild>
                     <a
-                      href="https://maps.google.com"
+                      href="https://maps.google.com/?q=20+Rue+Clapeyron+75008+Paris"
                       target="_blank"
                       rel="noopener noreferrer"
                     >

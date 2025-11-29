@@ -30,9 +30,9 @@ export function ReservationCTA() {
               </Link>
             </Button>
             <Button variant="outline" size="xl" asChild>
-              <a href="tel:+33123456789" className="flex items-center gap-2">
+              <a href="tel:0753236352" className="flex items-center gap-2">
                 <Phone size={20} />
-                +33 1 23 45 67 89
+                07 53 23 63 52
               </a>
             </Button>
           </div>

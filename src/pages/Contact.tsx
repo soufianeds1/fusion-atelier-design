@@ -66,8 +66,8 @@ const Contact = () => {
                       <div>
                         <h3 className="font-medium text-foreground mb-1">Adresse</h3>
                         <p className="text-muted-foreground">
-                          42 Rue de la Gastronomie<br />
-                          75008 Paris, France
+                          20 Rue Clapeyron<br />
+                          75008 Paris
                         </p>
                       </div>
                     </div>
@@ -79,10 +79,10 @@ const Contact = () => {
                       <div>
                         <h3 className="font-medium text-foreground mb-1">Téléphone</h3>
                         <a
-                          href="tel:+33123456789"
+                          href="tel:0753236352"
                           className="text-muted-foreground hover:text-accent transition-colors"
                         >
-                          +33 1 23 45 67 89
+                          07 53 23 63 52
                         </a>
                       </div>
                     </div>
@@ -94,10 +94,10 @@ const Contact = () => {
                       <div>
                         <h3 className="font-medium text-foreground mb-1">Email</h3>
                         <a
-                          href="mailto:contact@leclipse.fr"
+                          href="mailto:contact@morello-paris.fr"
                           className="text-muted-foreground hover:text-accent transition-colors"
                         >
-                          contact@leclipse.fr
+                          contact@morello-paris.fr
                         </a>
                       </div>
                     </div>
@@ -109,9 +109,8 @@ const Contact = () => {
                       <div>
                         <h3 className="font-medium text-foreground mb-1">Horaires</h3>
                         <div className="text-muted-foreground text-sm space-y-1">
-                          <p><span className="text-foreground">Déjeuner :</span> Lun-Ven 12h-15h</p>
-                          <p><span className="text-foreground">Dîner :</span> Lun-Jeu 19h-01h</p>
-                          <p><span className="text-foreground">Week-end :</span> Ven-Sam 19h-02h, Dim 19h-00h</p>
+                          <p>Lundi - Dimanche : 15h00 - 2h00</p>
+                          <p className="text-foreground font-medium mt-2">Ouvert 7j/7</p>
                         </div>
                       </div>
                     </div>
