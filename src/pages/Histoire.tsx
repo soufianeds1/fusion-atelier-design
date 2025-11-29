@@ -12,7 +12,7 @@ const Histoire = () => {
           <div className="absolute inset-0">
             <img
               src={heroImage}
-              alt="L'intérieur du restaurant L'Éclipse"
+              alt="L'intérieur du restaurant LE MORELLO"
               className="w-full h-full object-cover opacity-30"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 to-background" />
@@ -36,11 +36,10 @@ const Histoire = () => {
                   La Naissance d'un Rêve
                 </h2>
                 <p className="text-muted-foreground leading-relaxed text-lg">
-                  L'Éclipse est née d'une passion commune entre deux amis : 
-                  l'amour de la gastronomie française et la fascination pour les 
-                  saveurs d'Asie. En 2019, au cœur de Paris, nous avons ouvert 
-                  les portes d'un lieu unique où ces deux mondes se rencontrent 
-                  avec harmonie.
+                  LE MORELLO est né d'une passion pour l'authenticité italienne. 
+                  Au cœur du 8ème arrondissement de Paris, nous avons ouvert 
+                  les portes d'un lieu unique où la tradition rencontre 
+                  l'élégance parisienne.
                 </p>
               </div>
 
@@ -87,7 +86,7 @@ const Histoire = () => {
                   L'Art de Recevoir
                 </h2>
                 <p className="text-muted-foreground leading-relaxed text-lg">
-                  À L'Éclipse, nous croyons que le service est aussi important 
+                  Au MORELLO, nous croyons que le service est aussi important 
                   que la cuisine. Notre équipe vous accueille avec chaleur et 
                   professionnalisme, veillant à ce que chaque moment passé 
                   chez nous soit mémorable. Que ce soit pour un dîner romantique, 
