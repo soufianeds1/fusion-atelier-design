@@ -9,8 +9,9 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="space-y-4">
-            <Link to="/" className="inline-block">
-              <img src={logo} alt="LE MORELLO" className="h-16 w-auto" />
+            <Link to="/" className="inline-flex items-center gap-3">
+              <img src={logo} alt="LE MORELLO" className="h-14 w-auto" />
+              <span className="font-display text-2xl font-semibold tracking-wide text-foreground">LE MORELLO</span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
               Un voyage culinaire hors du temps, où la cuisine italienne rencontre l'élégance parisienne.

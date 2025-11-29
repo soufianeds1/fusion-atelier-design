@@ -21,8 +21,9 @@ export function Navbar() {
       <nav className="container mx-auto px-4 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center">
-            <img src={logo} alt="LE MORELLO" className="h-14 w-auto" />
+          <Link to="/" className="flex items-center gap-3">
+            <img src={logo} alt="LE MORELLO" className="h-12 w-auto" />
+            <span className="font-display text-xl font-semibold tracking-wide text-foreground">LE MORELLO</span>
           </Link>
 
           {/* Desktop Navigation */}
