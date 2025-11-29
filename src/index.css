@@ -6,89 +6,89 @@
 
 @layer base {
   :root {
-    /* Dark luxurious palette */
-    --background: 240 10% 6%;
-    --foreground: 40 15% 90%;
+    /* Deep Black Luxurious palette */
+    --background: 0 0% 4%;
+    --foreground: 40 20% 92%;
 
-    --card: 240 10% 8%;
-    --card-foreground: 40 15% 90%;
+    --card: 0 0% 7%;
+    --card-foreground: 40 20% 92%;
 
-    --popover: 240 10% 8%;
-    --popover-foreground: 40 15% 90%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 40 20% 92%;
 
-    /* Deep burgundy red */
-    --primary: 0 45% 35%;
-    --primary-foreground: 40 15% 95%;
-    --primary-glow: 0 50% 45%;
+    /* Metallic Gold primary */
+    --primary: 43 68% 52%;
+    --primary-foreground: 0 0% 4%;
+    --primary-glow: 43 75% 60%;
 
-    /* Deep blue accent */
-    --secondary: 220 50% 20%;
-    --secondary-foreground: 40 15% 95%;
+    /* Anthracite secondary */
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 40 20% 92%;
 
-    /* Muted dark tones */
-    --muted: 240 10% 15%;
+    /* Muted dark anthracite */
+    --muted: 0 0% 15%;
     --muted-foreground: 40 10% 60%;
 
-    /* Gold accent */
-    --accent: 40 70% 50%;
-    --accent-foreground: 240 10% 6%;
+    /* Metallic Gold accent */
+    --accent: 43 68% 52%;
+    --accent-foreground: 0 0% 4%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 240 10% 18%;
-    --input: 240 10% 18%;
-    --ring: 0 45% 35%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 43 68% 52%;
 
     --radius: 0.25rem;
 
     /* Custom tokens */
-    --wine: 0 45% 30%;
-    --wine-light: 0 40% 45%;
-    --midnight: 220 50% 12%;
-    --gold: 40 70% 50%;
-    --gold-muted: 40 50% 40%;
-    --cream: 40 30% 92%;
+    --wine: 43 68% 42%;
+    --wine-light: 43 68% 52%;
+    --midnight: 0 0% 8%;
+    --gold: 43 68% 52%;
+    --gold-muted: 43 50% 40%;
+    --cream: 40 20% 92%;
 
     /* Gradients */
-    --gradient-hero: linear-gradient(180deg, hsl(240 10% 4%) 0%, hsl(240 10% 8%) 50%, hsl(0 45% 15% / 0.3) 100%);
-    --gradient-card: linear-gradient(135deg, hsl(240 10% 10%) 0%, hsl(240 10% 6%) 100%);
-    --gradient-wine: linear-gradient(135deg, hsl(0 45% 25%) 0%, hsl(0 40% 35%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 0%) 0%, hsl(0 0% 4%) 50%, hsl(43 68% 20% / 0.2) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 9%) 0%, hsl(0 0% 4%) 100%);
+    --gradient-wine: linear-gradient(135deg, hsl(43 68% 35%) 0%, hsl(43 68% 52%) 100%);
 
     /* Shadows */
-    --shadow-glow: 0 0 60px hsl(0 45% 30% / 0.3);
-    --shadow-elegant: 0 25px 50px -12px hsl(0 0% 0% / 0.5);
+    --shadow-glow: 0 0 60px hsl(43 68% 52% / 0.25);
+    --shadow-elegant: 0 25px 50px -12px hsl(0 0% 0% / 0.7);
 
-    --sidebar-background: 240 10% 8%;
-    --sidebar-foreground: 40 15% 90%;
-    --sidebar-primary: 0 45% 35%;
-    --sidebar-primary-foreground: 40 15% 95%;
-    --sidebar-accent: 240 10% 15%;
-    --sidebar-accent-foreground: 40 15% 90%;
-    --sidebar-border: 240 10% 18%;
-    --sidebar-ring: 0 45% 35%;
+    --sidebar-background: 0 0% 7%;
+    --sidebar-foreground: 40 20% 92%;
+    --sidebar-primary: 43 68% 52%;
+    --sidebar-primary-foreground: 0 0% 4%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 40 20% 92%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 43 68% 52%;
   }
 
   .dark {
-    --background: 240 10% 6%;
-    --foreground: 40 15% 90%;
-    --card: 240 10% 8%;
-    --card-foreground: 40 15% 90%;
-    --popover: 240 10% 8%;
-    --popover-foreground: 40 15% 90%;
-    --primary: 0 45% 35%;
-    --primary-foreground: 40 15% 95%;
-    --secondary: 220 50% 20%;
-    --secondary-foreground: 40 15% 95%;
-    --muted: 240 10% 15%;
+    --background: 0 0% 4%;
+    --foreground: 40 20% 92%;
+    --card: 0 0% 7%;
+    --card-foreground: 40 20% 92%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 40 20% 92%;
+    --primary: 43 68% 52%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 40 20% 92%;
+    --muted: 0 0% 15%;
     --muted-foreground: 40 10% 60%;
-    --accent: 40 70% 50%;
-    --accent-foreground: 240 10% 6%;
+    --accent: 43 68% 52%;
+    --accent-foreground: 0 0% 4%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 240 10% 18%;
-    --input: 240 10% 18%;
-    --ring: 0 45% 35%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 43 68% 52%;
   }
 }
 
