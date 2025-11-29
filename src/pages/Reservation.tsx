@@ -212,7 +212,7 @@ const Reservation = () => {
                   {requiresDeposit && (
                     <div className="p-4 bg-accent/10 border border-accent/30 rounded-sm">
                       <p className="text-accent text-sm font-medium">
-                        ⚠️ À partir de 6 personnes, une caution sera demandée via PayPal.
+                        ⚠️ À partir de 6 personnes, une caution de 10€/pers. sera demandée via PayPal. Non remboursable en cas d'annulation ou de no-show.
                       </p>
                     </div>
                   )}
@@ -236,7 +236,8 @@ const Reservation = () => {
                       <p>2ème service : 21h - 23h</p>
                       <p>3ème service : 23h - 01h</p>
                       <p className="text-sm mt-2 text-accent">Week-end : max 12 personnes</p>
-                      <p className="text-sm mt-1 text-accent">À partir de 6 pers. : caution requise</p>
+                      <p className="text-sm mt-1 text-accent">À partir de 6 pers. : caution 10€/pers.</p>
+                      <p className="text-xs mt-1 text-muted-foreground/70">Non remboursable en cas d'annulation</p>
                     </div>
                     <div>
                       <h3 className="text-foreground font-medium mb-2">Contact Direct</h3>
