@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Instagram, Facebook, MapPin, Phone, Mail, Clock } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 export function Footer() {
   return (
@@ -9,9 +10,7 @@ export function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <Link to="/" className="inline-block">
-            <span className="font-display text-3xl font-semibold text-foreground">
-              LE <span className="text-accent">MORELLO</span>
-            </span>
+              <img src={logo} alt="LE MORELLO" className="h-16 w-auto" />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
               Un voyage culinaire hors du temps, où la cuisine italienne rencontre l'élégance parisienne.
