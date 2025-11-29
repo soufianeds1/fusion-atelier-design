@@ -6,28 +6,25 @@ import dish3 from "@/assets/dish-3.jpg";
 
 const dishes = [
   {
-    name: "Filetto al Tartufo",
+    name: "Tartufata",
     description:
-      "Filet de bœuf nappé d'une sauce à la truffe, accompagné de ses légumes de saison.",
-    price: "43€",
+      "Crème de truffe, Stracciatella, champignons, Mozzarella Fior Di Latte, Roquette.",
     image: dish1,
+    category: "Pizza",
+  },
+  {
+    name: "Filetto del Capo (Rossini)",
+    description:
+      "Filet de bœuf accompagné d'une sauce au foie gras.",
+    image: dish2,
     category: "Carne",
   },
   {
-    name: "Ravioli al Tartufo",
+    name: "Pain Perdu",
     description:
-      "Pâtes farcies à la truffe, accompagnées d'une sauce crémeuse truffée.",
-    price: "28€",
-    image: dish2,
-    category: "Pasta",
-  },
-  {
-    name: "Burrata Tartufo e Miel",
-    description:
-      "Burrata crémeuse, miel, truffe, tomate cerise, roquette et crème balsamique.",
-    price: "19€",
+      "Nutella.",
     image: dish3,
-    category: "Antipasti",
+    category: "Dessert",
   },
 ];
 
@@ -73,14 +70,9 @@ export function FeaturedDishes() {
 
               {/* Content */}
               <div className="p-6">
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="font-display text-xl font-semibold group-hover:text-accent transition-colors">
-                    {dish.name}
-                  </h3>
-                  <span className="text-accent font-display text-xl font-semibold">
-                    {dish.price}
-                  </span>
-                </div>
+                <h3 className="font-display text-xl font-semibold group-hover:text-accent transition-colors mb-3">
+                  {dish.name}
+                </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
                   {dish.description}
                 </p>
