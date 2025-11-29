@@ -254,17 +254,17 @@ const Reservation = () => {
                       <h3 className="text-foreground font-medium mb-2">Privatisation</h3>
                       <p>
                         Pour vos événements privés, nous pouvons accueillir 
-                        jusqu'à 80 personnes. Contactez-nous pour un devis personnalisé.
+                        jusqu'à 18 personnes. Contactez-nous pour un devis personnalisé.
                       </p>
                     </div>
                     <div>
                       <h3 className="text-foreground font-medium mb-2">Modes de Paiement</h3>
-                      <p>Carte bancaire • Espèces • Tickets Restaurant • PayPal</p>
+                      <p>Carte bancaire • Espèces • PayPal</p>
                       <p className="text-sm mt-1 text-muted-foreground/70">Caution via PayPal uniquement</p>
                     </div>
                     <div>
                       <h3 className="text-foreground font-medium mb-2">Services</h3>
-                      <p>Terrasse • Climatisation • Accès PMR • Wifi gratuit</p>
+                      <p>Climatisation • Wifi gratuit</p>
                     </div>
                   </div>
                 </div>
