@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, Users, Phone, Mail } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+
+const SERVICES = [
+  { value: "19h-21h", label: "1er service (19h - 21h)" },
+  { value: "21h-23h", label: "2ème service (21h - 23h)" },
+  { value: "23h-01h", label: "3ème service (23h - 01h)" },
+];
 
 const Reservation = () => {
   const [formData, setFormData] = useState({
@@ -11,10 +17,21 @@ const Reservation = () => {
     email: "",
     phone: "",
     date: "",
-    time: "",
+    service: "",
     guests: "2",
     message: "",
   });
+
+  // Déterminer si c'est un week-end
+  const isWeekend = useMemo(() => {
+    if (!formData.date) return false;
+    const date = new Date(formData.date);
+    const day = date.getDay();
+    return day === 0 || day === 5 || day === 6; // Vendredi, Samedi, Dimanche
+  }, [formData.date]);
+
+  // Max convives selon le jour
+  const maxGuests = isWeekend ? 12 : 18;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +44,21 @@ const Reservation = () => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => {
+      const newData = { ...prev, [name]: value };
+      // Réajuster le nombre de convives si nécessaire
+      if (name === "date") {
+        const date = new Date(value);
+        const day = date.getDay();
+        const weekend = day === 0 || day === 5 || day === 6;
+        const max = weekend ? 12 : 18;
+        if (parseInt(prev.guests) > max) {
+          newData.guests = max.toString();
+        }
+      }
+      return newData;
+    });
   };
 
   return (
@@ -123,38 +154,27 @@ const Reservation = () => {
                     <div>
                       <label className="block text-sm font-medium text-muted-foreground mb-2">
                         <Clock size={16} className="inline mr-1" />
-                        Heure *
+                        Service *
                       </label>
                       <select
-                        name="time"
+                        name="service"
                         required
-                        value={formData.time}
+                        value={formData.service}
                         onChange={handleChange}
                         className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:border-accent focus:outline-none transition-colors"
                       >
                         <option value="">Choisir</option>
-                        <option value="15:00">15:00</option>
-                        <option value="15:30">15:30</option>
-                        <option value="16:00">16:00</option>
-                        <option value="17:00">17:00</option>
-                        <option value="18:00">18:00</option>
-                        <option value="19:00">19:00</option>
-                        <option value="19:30">19:30</option>
-                        <option value="20:00">20:00</option>
-                        <option value="20:30">20:30</option>
-                        <option value="21:00">21:00</option>
-                        <option value="21:30">21:30</option>
-                        <option value="22:00">22:00</option>
-                        <option value="22:30">22:30</option>
-                        <option value="23:00">23:00</option>
-                        <option value="23:30">23:30</option>
-                        <option value="00:00">00:00</option>
+                        {SERVICES.map((s) => (
+                          <option key={s.value} value={s.value}>
+                            {s.label}
+                          </option>
+                        ))}
                       </select>
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-muted-foreground mb-2">
                         <Users size={16} className="inline mr-1" />
-                        Convives *
+                        Convives * {isWeekend && <span className="text-accent text-xs">(max 12 le WE)</span>}
                       </label>
                       <select
                         name="guests"
@@ -163,12 +183,11 @@ const Reservation = () => {
                         onChange={handleChange}
                         className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:border-accent focus:outline-none transition-colors"
                       >
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
+                        {Array.from({ length: maxGuests }, (_, i) => i + 1).map((n) => (
                           <option key={n} value={n}>
                             {n} {n === 1 ? "personne" : "personnes"}
                           </option>
                         ))}
-                        <option value="10+">Plus de 10</option>
                       </select>
                     </div>
                   </div>
@@ -201,8 +220,11 @@ const Reservation = () => {
                   </h2>
                   <div className="space-y-6 text-muted-foreground">
                     <div>
-                      <h3 className="text-foreground font-medium mb-2">Horaires</h3>
-                      <p>Ouvert tous les jours de 15h00 à 2h00</p>
+                      <h3 className="text-foreground font-medium mb-2">Services de Réservation</h3>
+                      <p>1er service : 19h - 21h</p>
+                      <p>2ème service : 21h - 23h</p>
+                      <p>3ème service : 23h - 01h</p>
+                      <p className="text-sm mt-2 text-accent">Week-end : max 12 personnes</p>
                     </div>
                     <div>
                       <h3 className="text-foreground font-medium mb-2">Contact Direct</h3>
