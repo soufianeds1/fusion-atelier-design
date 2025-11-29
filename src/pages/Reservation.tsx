@@ -30,8 +30,11 @@ const Reservation = () => {
     return day === 0 || day === 5 || day === 6; // Vendredi, Samedi, Dimanche
   }, [formData.date]);
 
-  // Max convives selon le jour
+  // Max convives selon le jour (12 max le week-end)
   const maxGuests = isWeekend ? 12 : 18;
+
+  // Caution requise à partir de 6 personnes
+  const requiresDeposit = parseInt(formData.guests) >= 6;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -206,6 +209,14 @@ const Reservation = () => {
                     />
                   </div>
 
+                  {requiresDeposit && (
+                    <div className="p-4 bg-accent/10 border border-accent/30 rounded-sm">
+                      <p className="text-accent text-sm font-medium">
+                        ⚠️ À partir de 6 personnes, une caution sera demandée via PayPal.
+                      </p>
+                    </div>
+                  )}
+
                   <Button type="submit" variant="gold" size="lg" className="w-full">
                     Envoyer ma Demande
                   </Button>
@@ -225,6 +236,7 @@ const Reservation = () => {
                       <p>2ème service : 21h - 23h</p>
                       <p>3ème service : 23h - 01h</p>
                       <p className="text-sm mt-2 text-accent">Week-end : max 12 personnes</p>
+                      <p className="text-sm mt-1 text-accent">À partir de 6 pers. : caution requise</p>
                     </div>
                     <div>
                       <h3 className="text-foreground font-medium mb-2">Contact Direct</h3>
@@ -246,7 +258,8 @@ const Reservation = () => {
                     </div>
                     <div>
                       <h3 className="text-foreground font-medium mb-2">Modes de Paiement</h3>
-                      <p>Carte bancaire • Espèces • Tickets Restaurant</p>
+                      <p>Carte bancaire • Espèces • Tickets Restaurant • PayPal</p>
+                      <p className="text-sm mt-1 text-muted-foreground/70">Caution via PayPal uniquement</p>
                     </div>
                     <div>
                       <h3 className="text-foreground font-medium mb-2">Services</h3>
