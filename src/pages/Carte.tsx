@@ -276,7 +276,7 @@ const Carte = () => {
 
                       {/* Saveurs */}
                       <div className="p-6 bg-muted/50 border border-border rounded-lg text-center">
-                        <p className="text-accent font-semibold mb-4">+5€ Les Saveurs</p>
+                        <p className="text-accent font-semibold mb-4">Nos Saveurs</p>
                         <div className="flex flex-wrap justify-center gap-2">
                           {hookahMenu.saveurs.map((saveur) => (
                             <span key={saveur} className="px-3 py-1 bg-card border border-border rounded-sm text-muted-foreground text-sm">
