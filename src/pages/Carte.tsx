@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
 const menuCategories = [
@@ -167,7 +167,20 @@ const hookahMenu = {
 };
 
 const Carte = () => {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string>("antipasti");
+
+  useEffect(() => {
+    // Scroll to antipasti section on page load
+    const timer = setTimeout(() => {
+      const element = document.getElementById("antipasti");
+      if (element) {
+        const offset = 100;
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: elementPosition - offset, behavior: "smooth" });
+      }
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   const scrollToCategory = (id: string) => {
     setActiveCategory(id);
