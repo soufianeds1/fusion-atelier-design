@@ -269,6 +269,9 @@ const Carte = () => {
                             </div>
                           ))}
                         </div>
+                        <p className="text-center text-accent font-semibold mt-4 pt-4 border-t border-accent/30">
+                          +5€ le week-end sur les formules
+                        </p>
                       </div>
 
                       {/* Saveurs */}
