@@ -6,28 +6,28 @@ import dish3 from "@/assets/dish-3.jpg";
 
 const dishes = [
   {
-    name: "Tataki de Thon Fusion",
+    name: "Filetto al Tartufo",
     description:
-      "Thon rouge mi-cuit, condiment yuzu-gingembre, émulsion de wasabi et julienne de légumes croquants.",
-    price: "24€",
+      "Filet de bœuf nappé d'une sauce à la truffe, accompagné de ses légumes de saison.",
+    price: "43€",
     image: dish1,
-    category: "Signature",
+    category: "Carne",
   },
   {
-    name: "Crevettes Tempura Royale",
+    name: "Ravioli al Tartufo",
     description:
-      "Crevettes black tiger en tempura légère, sauce sweet chili maison et émulsion de citron vert.",
-    price: "18€",
+      "Pâtes farcies à la truffe, accompagnées d'une sauce crémeuse truffée.",
+    price: "28€",
     image: dish2,
-    category: "À Partager",
+    category: "Pasta",
   },
   {
-    name: "Burrata di Puglia",
+    name: "Burrata Tartufo e Miel",
     description:
-      "Crémeuse burrata, tomates confites au basilic thaï, huile d'olive infusée et fleur de sel.",
-    price: "16€",
+      "Burrata crémeuse, miel, truffe, tomate cerise, roquette et crème balsamique.",
+    price: "19€",
     image: dish3,
-    category: "À Partager",
+    category: "Antipasti",
   },
 ];
 
@@ -44,13 +44,13 @@ export function FeaturedDishes() {
             Les Incontournables
           </h2>
           <p className="text-muted-foreground text-lg">
-            Une sélection de nos plats signatures, où la créativité rencontre la tradition.
+            Une sélection de nos plats signatures, où la créativité rencontre la tradition italienne.
           </p>
         </div>
 
         {/* Dishes Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {dishes.map((dish, index) => (
+          {dishes.map((dish) => (
             <div
               key={dish.name}
               className="group relative overflow-hidden rounded-lg bg-background border border-border hover:border-accent/30 transition-all duration-500"
