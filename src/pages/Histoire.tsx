@@ -36,10 +36,11 @@ const Histoire = () => {
                   La Naissance d'un Rêve
                 </h2>
                 <p className="text-muted-foreground leading-relaxed text-lg">
-                  LE MORELLO est né d'une passion pour l'authenticité italienne. 
-                  Au cœur du 8ème arrondissement de Paris, nous avons ouvert 
-                  les portes d'un lieu unique où la tradition rencontre 
-                  l'élégance parisienne.
+                  LE MORELLO est né d'une volonté audacieuse : sublimer la dolce vita 
+                  dans un cadre résolument contemporain. Nous avons ouvert les portes 
+                  d'un lieu hybride et singulier où l'excellence de la gastronomie 
+                  italienne rencontre l'énergie vibrante d'un lounge d'exception. 
+                  Plus qu'un restaurant, c'est une invitation à célébrer l'instant présent.
                 </p>
               </div>
 
@@ -48,17 +49,12 @@ const Histoire = () => {
                   Un Écrin d'Exception
                 </h2>
                 <p className="text-muted-foreground leading-relaxed text-lg">
-                  Sous nos lustres de cristal majestueux, les miroirs dorés 
-                  reflètent une lumière tamisée aux tons bordeaux et bleu nuit. 
-                  Chaque détail a été pensé pour créer une atmosphère 
-                  enveloppante, un voyage hors du temps où chaque instant 
-                  devient précieux.
-                </p>
-                <p className="text-muted-foreground leading-relaxed text-lg">
-                  Notre décor s'inspire des grandes maisons parisiennes d'antan, 
-                  revisité avec une touche contemporaine. Les velours profonds, 
-                  les boiseries sombres et les touches dorées créent un écrin 
-                  parfait pour nos créations culinaires.
+                  Sous une lumière tamisée propice à la confidence comme à la fête, 
+                  chaque détail a été pensé pour créer une atmosphère chic et enveloppante. 
+                  L'espace a été conçu pour suspendre le temps : un refuge moderne où 
+                  le confort des assises invite à la détente. C'est le décor idéal pour 
+                  déguster nos créations, offrant une transition douce et élégante du 
+                  dîner vers une fin de soirée inoubliable.
                 </p>
               </div>
 
@@ -67,17 +63,12 @@ const Histoire = () => {
                   La Philosophie Culinaire
                 </h2>
                 <p className="text-muted-foreground leading-relaxed text-lg">
-                  Notre cuisine est un dialogue constant entre tradition et 
-                  modernité. Les techniques françaises classiques rencontrent 
-                  les épices et les saveurs d'Asie, créant des associations 
-                  audacieuses mais toujours équilibrées. Chaque plat raconte 
-                  une histoire, celle de deux cultures qui se complètent.
-                </p>
-                <p className="text-muted-foreground leading-relaxed text-lg">
-                  Nous travaillons exclusivement avec des produits frais et 
-                  de saison, sélectionnés auprès de producteurs locaux passionnés. 
-                  La qualité est notre obsession, du premier amuse-bouche 
-                  jusqu'au dernier mignardise.
+                  Notre cuisine est un hommage aux grands classiques italiens, revisités 
+                  avec des touches de noblesse. La tradition de la botte rencontre ici 
+                  des produits de prestige : la truffe noire, le foie gras et la burrata 
+                  crémeuse sont au cœur de notre signature. De notre Filetto Rossini à 
+                  nos Ravioli al Tartufo, chaque assiette raconte une histoire de générosité 
+                  et de raffinement, préparée avec une obsession pour le goût juste.
                 </p>
               </div>
 
@@ -86,12 +77,11 @@ const Histoire = () => {
                   L'Art de Recevoir
                 </h2>
                 <p className="text-muted-foreground leading-relaxed text-lg">
-                  Au MORELLO, nous croyons que le service est aussi important 
-                  que la cuisine. Notre équipe vous accueille avec chaleur et 
-                  professionnalisme, veillant à ce que chaque moment passé 
-                  chez nous soit mémorable. Que ce soit pour un dîner romantique, 
-                  une célébration ou une soirée entre amis, nous sommes là 
-                  pour créer des souvenirs inoubliables.
+                  Chez LE MORELLO nous croyons que l'expérience ne s'arrête pas au repas. 
+                  Notre équipe vous accueille avec chaleur pour faire de votre venue un 
+                  moment privilégié. De la découverte de nos Mocktails signatures jusqu'aux 
+                  instants de détente autour de nos saveurs lounge, nous sommes là pour 
+                  transformer vos soirées en souvenirs mémorables, entre élégance et convivialité.
                 </p>
               </div>
             </div>
