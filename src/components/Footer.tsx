@@ -14,7 +14,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              Un voyage culinaire hors du temps, où la cuisine fusion rencontre l'élégance parisienne.
+              Un voyage culinaire hors du temps, où la cuisine italienne rencontre l'élégance parisienne.
             </p>
             <div className="flex gap-4 pt-2">
               <a

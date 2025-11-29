@@ -24,7 +24,7 @@ export function HeroSection() {
             className="text-accent uppercase tracking-[0.3em] text-sm md:text-base font-medium opacity-0 animate-fade-in"
             style={{ animationDelay: "0.2s" }}
           >
-            Restaurant Fusion • Paris
+            Restaurant Italien • Paris
           </p>
 
           {/* Main Headline */}
@@ -42,7 +42,7 @@ export function HeroSection() {
             style={{ animationDelay: "0.6s" }}
           >
             Laissez-vous emporter par une expérience culinaire unique où les saveurs 
-            d'Asie rencontrent l'élégance française dans un cadre d'exception.
+            italiennes rencontrent l'élégance parisienne dans un cadre d'exception.
           </p>
 
           {/* CTA Buttons */}

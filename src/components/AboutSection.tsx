@@ -9,9 +9,9 @@ const features = [
   },
   {
     icon: Utensils,
-    title: "Cuisine Fusion",
+    title: "Cuisine Italienne",
     description:
-      "Notre chef marie les techniques françaises aux saveurs d'Asie pour créer des plats signatures qui éveillent tous vos sens.",
+      "Notre chef sublime les classiques italiens avec des produits frais : burrata crémeuse, truffe parfumée, et pâtes faites maison.",
   },
   {
     icon: Clock,
@@ -41,7 +41,7 @@ export function AboutSection() {
             Sous les lustres de cristal et les reflets des miroirs d'époque, 
             L'Éclipse vous invite à une parenthèse enchantée. Nos tons bordeaux 
             et bleu nuit créent une ambiance à la fois chic et intimiste, 
-            où chaque dîner devient une célébration.
+            où chaque dîner devient une célébration de la gastronomie italienne.
           </p>
         </div>
 
