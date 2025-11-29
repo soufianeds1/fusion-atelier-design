@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import logo from "@/assets/logo.png";
 
 const navLinks = [
   { name: "Accueil", href: "/" },
@@ -21,9 +22,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <span className="font-display text-2xl md:text-3xl font-semibold text-foreground">
-              LE <span className="text-accent">MORELLO</span>
-            </span>
+            <img src={logo} alt="LE MORELLO" className="h-14 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
