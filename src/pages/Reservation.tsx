@@ -210,10 +210,25 @@ const Reservation = () => {
                   </div>
 
                   {requiresDeposit && (
-                    <div className="p-4 bg-accent/10 border border-accent/30 rounded-sm">
+                    <div className="p-4 bg-accent/10 border border-accent/30 rounded-sm space-y-4">
                       <p className="text-accent text-sm font-medium">
                         ⚠️ À partir de 6 personnes, une caution de 10€/pers. sera demandée via PayPal. Non remboursable en cas d'annulation ou de no-show.
                       </p>
+                      <p className="text-foreground text-sm">
+                        Montant de la caution : <span className="font-semibold text-accent">{parseInt(formData.guests) * 10}€</span>
+                      </p>
+                      <a
+                        href={`https://www.paypal.com/paypalme/LEMORELLO/${parseInt(formData.guests) * 10}EUR`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 w-full py-3 bg-[#0070ba] hover:bg-[#005ea6] text-white font-medium rounded-sm transition-colors"
+                      >
+                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.771.771 0 0 1 .761-.654h6.393c2.115 0 3.596.55 4.403 1.635.753 1.013.89 2.333.407 3.924-.016.054-.033.107-.05.162l-.002.006v.001c-.598 2.282-1.77 3.796-3.484 4.504-.86.355-1.865.535-2.99.535H8.007a.77.77 0 0 0-.76.654l-.82 5.226a.77.77 0 0 1-.76.654h-.591a.642.642 0 0 0-.633.74l-.367 2.33z"/>
+                          <path d="M19.904 8.96c-.027.113-.057.227-.089.343-.923 3.324-3.067 4.477-6.103 4.477h-.684a.773.773 0 0 0-.76.654l-.788 5.022-.224 1.42a.405.405 0 0 0 .4.466h2.807c.332 0 .614-.241.666-.568l.027-.14.529-3.358.034-.184a.67.67 0 0 1 .66-.568h.42c2.692 0 4.8-1.094 5.417-4.257.257-1.32.124-2.424-.557-3.2a2.66 2.66 0 0 0-.755-.607z"/>
+                        </svg>
+                        Payer la caution via PayPal
+                      </a>
                     </div>
                   )}
 
@@ -259,7 +274,7 @@ const Reservation = () => {
                     </div>
                     <div>
                       <h3 className="text-foreground font-medium mb-2">Modes de Paiement</h3>
-                      <p>Carte bancaire • Espèces • PayPal</p>
+                      <p>Espèces • PayPal</p>
                       <p className="text-sm mt-1 text-muted-foreground/70">Caution via PayPal uniquement</p>
                     </div>
                     <div>
