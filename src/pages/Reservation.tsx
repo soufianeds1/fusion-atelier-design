@@ -38,9 +38,43 @@ const Reservation = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Format the date for display
+    const dateObj = new Date(formData.date);
+    const formattedDate = dateObj.toLocaleDateString('fr-FR', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+
+    // Get service label
+    const serviceLabel = SERVICES.find(s => s.value === formData.service)?.label || formData.service;
+
+    // Build WhatsApp message
+    const message = `🍽️ *Nouvelle Réservation Morello*
+
+👤 *Nom :* ${formData.name}
+📧 *Email :* ${formData.email}
+📱 *Téléphone :* ${formData.phone}
+
+📅 *Date :* ${formattedDate}
+🕐 *Service :* ${serviceLabel}
+👥 *Convives :* ${formData.guests} personne${parseInt(formData.guests) > 1 ? 's' : ''}
+
+${formData.message ? `💬 *Message :* ${formData.message}` : ''}
+${requiresDeposit ? `\n⚠️ *Caution requise :* ${parseInt(formData.guests) * 10}€` : ''}`;
+
+    // WhatsApp number in international format (France)
+    const whatsappNumber = "33653236352";
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+    // Open WhatsApp
+    window.open(whatsappUrl, '_blank');
+
     toast({
-      title: "Demande envoyée !",
-      description: "Nous vous confirmerons votre réservation par email sous 24h.",
+      title: "Redirection vers WhatsApp",
+      description: "Envoyez votre demande de réservation via WhatsApp.",
     });
   };
 
