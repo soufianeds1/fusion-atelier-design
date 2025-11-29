@@ -39,7 +39,7 @@ export function AboutSection() {
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
             Sous les lustres de cristal et les reflets des miroirs d'époque, 
-            L'Éclipse vous invite à une parenthèse enchantée. Nos tons bordeaux 
+            LE MORELLO vous invite à une parenthèse enchantée. Nos tons bordeaux 
             et bleu nuit créent une ambiance à la fois chic et intimiste, 
             où chaque dîner devient une célébration de la gastronomie italienne.
           </p>
