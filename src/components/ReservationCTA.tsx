@@ -39,7 +39,7 @@ export function ReservationCTA() {
 
           {/* Payment Info */}
           <p className="text-muted-foreground text-sm mt-8">
-            CB • Espèces • Tickets Restaurant acceptés
+            CB • Espèces • Tickets Restaurant • PayPal acceptés
           </p>
         </div>
       </div>
