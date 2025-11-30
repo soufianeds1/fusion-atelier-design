@@ -69,9 +69,8 @@ export function Footer() {
               Horaires
             </h3>
             <div className="space-y-2 text-sm text-muted-foreground">
-              <p className="font-medium text-foreground">Ouverture : 15h00</p>
-              <p>Cuisine : jusqu'à 1h00</p>
-              <p>Lounge : jusqu'à 2h00</p>
+              <p><span className="text-foreground font-medium">Lounge & Bar :</span> 15h00 - 2h00</p>
+              <p><span className="text-foreground font-medium">Cuisine :</span> 18h00 - 1h00</p>
               <p className="text-xs text-muted-foreground/70 mt-2">Tous les jours</p>
             </div>
           </div>
