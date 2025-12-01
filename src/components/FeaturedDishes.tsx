@@ -1,30 +1,38 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import dish1 from "@/assets/dish-1.jpg";
-import dish2 from "@/assets/dish-2.jpg";
-import dish3 from "@/assets/dish-3.jpg";
+import filettoTartufo from "@/assets/filetto-tartufo.jpg";
+import rigatoniNorma from "@/assets/rigatoni-norma.jpg";
+import linguineBolognese from "@/assets/linguine-bolognese.jpg";
+import bresaola from "@/assets/bresaola.jpg";
 
 const dishes = [
   {
-    name: "Tartufata",
+    name: "Filetto al Tartufo",
     description:
-      "Crème de truffe, Stracciatella, champignons, Mozzarella Fior Di Latte, Roquette.",
-    image: dish1,
+      "Filet de bœuf nappé d'une sauce à la truffe.",
+    image: filettoTartufo,
+    category: "Carne",
+  },
+  {
+    name: "Rigatoni al Norma",
+    description:
+      "Rigatoni, tomates cerise, aubergine, ail, émincé de bœuf, ricotta.",
+    image: rigatoniNorma,
+    category: "Pasta",
+  },
+  {
+    name: "Linguine alla Bolognese",
+    description:
+      "Linguine à la sauce tomate et à la viande hachée.",
+    image: linguineBolognese,
+    category: "Pasta",
+  },
+  {
+    name: "La Bresaola",
+    description:
+      "Sauce tomate, Bresaola, Mozzarella Fior Di Latte, basilic, roquette.",
+    image: bresaola,
     category: "Pizza",
-  },
-  {
-    name: "Filetto del Capo (Rossini)",
-    description:
-      "Filet de bœuf accompagné d'une sauce au foie gras.",
-    image: dish2,
-    category: "Carne",
-  },
-  {
-    name: "Filetto alla Senape",
-    description:
-      "Filet de bœuf, sauce à la moutarde à l'ancienne, stracciatella et oignons caramélisés.",
-    image: dish3,
-    category: "Carne",
   },
 ];
 
@@ -46,7 +54,7 @@ export function FeaturedDishes() {
         </div>
 
         {/* Dishes Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {dishes.map((dish) => (
             <div
               key={dish.name}
