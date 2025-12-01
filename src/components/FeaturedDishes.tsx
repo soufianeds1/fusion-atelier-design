@@ -20,9 +20,9 @@ const dishes = [
     category: "Carne",
   },
   {
-    name: "Filetto al Tartufo",
+    name: "Filetto alla Senape",
     description:
-      "Filet de bœuf nappé d'une sauce à la truffe.",
+      "Filet de bœuf, sauce à la moutarde à l'ancienne, stracciatella et oignons caramélisés.",
     image: dish3,
     category: "Carne",
   },
