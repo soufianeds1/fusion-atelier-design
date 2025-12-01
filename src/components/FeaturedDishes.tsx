@@ -1,11 +1,29 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import dish1 from "@/assets/dish-1.jpg";
+import dish2 from "@/assets/dish-2.jpg";
+import dish3 from "@/assets/dish-3.jpg";
 import filettoTartufo from "@/assets/filetto-tartufo.jpg";
 import rigatoniNorma from "@/assets/rigatoni-norma.jpg";
 import linguineBolognese from "@/assets/linguine-bolognese.jpg";
 import bresaola from "@/assets/bresaola.jpg";
 
 const dishes = [
+  // Carne
+  {
+    name: "Filetto del Capo (Rossini)",
+    description:
+      "Filet de bœuf accompagné d'une sauce au foie gras.",
+    image: dish2,
+    category: "Carne",
+  },
+  {
+    name: "Filetto alla Senape",
+    description:
+      "Filet de bœuf, sauce à la moutarde à l'ancienne, stracciatella et oignons caramélisés.",
+    image: dish3,
+    category: "Carne",
+  },
   {
     name: "Filetto al Tartufo",
     description:
@@ -13,6 +31,7 @@ const dishes = [
     image: filettoTartufo,
     category: "Carne",
   },
+  // Pasta
   {
     name: "Rigatoni al Norma",
     description:
@@ -26,6 +45,14 @@ const dishes = [
       "Linguine à la sauce tomate et à la viande hachée.",
     image: linguineBolognese,
     category: "Pasta",
+  },
+  // Pizza
+  {
+    name: "Tartufata",
+    description:
+      "Crème de truffe, Stracciatella, champignons, Mozzarella Fior Di Latte, Roquette.",
+    image: dish1,
+    category: "Pizza",
   },
   {
     name: "La Bresaola",
@@ -54,7 +81,7 @@ export function FeaturedDishes() {
         </div>
 
         {/* Dishes Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {dishes.map((dish) => (
             <div
               key={dish.name}
@@ -78,7 +105,7 @@ export function FeaturedDishes() {
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="font-display text-xl font-semibold group-hover:text-accent transition-colors mb-3">
+                <h3 className="font-display text-lg font-semibold group-hover:text-accent transition-colors mb-2">
                   {dish.name}
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
