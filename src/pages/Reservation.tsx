@@ -36,8 +36,11 @@ const Reservation = () => {
   // Caution requise à partir de 6 personnes
   const requiresDeposit = parseInt(formData.guests) >= 6;
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     
     // Format the date for display
     const dateObj = new Date(formData.date);
@@ -73,35 +76,32 @@ const Reservation = () => {
           timestamp: new Date().toISOString(),
         }),
       });
+
+      toast({
+        title: "Réservation envoyée",
+        description: "Votre demande a été enregistrée. Nous vous contacterons bientôt.",
+      });
+
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        date: "",
+        service: "",
+        guests: "2",
+        message: "",
+      });
     } catch (error) {
       console.error("Erreur envoi Google Sheet:", error);
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue. Veuillez réessayer.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
     }
-
-    // Build WhatsApp message
-    const message = `🍽️ *Nouvelle Réservation Morello*
-
-👤 *Nom :* ${formData.name}
-📧 *Email :* ${formData.email}
-📱 *Téléphone :* ${formData.phone}
-
-📅 *Date :* ${formattedDate}
-🕐 *Service :* ${serviceLabel}
-👥 *Convives :* ${formData.guests} personne${parseInt(formData.guests) > 1 ? 's' : ''}
-
-${formData.message ? `💬 *Message :* ${formData.message}` : ''}
-${requiresDeposit ? `\n⚠️ *Caution requise :* ${parseInt(formData.guests) * 10}€` : ''}`;
-
-    // WhatsApp number in international format (France)
-    const whatsappNumber = "33653236352";
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-
-    // Open WhatsApp
-    window.open(whatsappUrl, '_blank');
-
-    toast({
-      title: "Réservation envoyée",
-      description: "Votre demande a été enregistrée. Confirmez via WhatsApp.",
-    });
   };
 
   const handleChange = (
@@ -292,8 +292,8 @@ ${requiresDeposit ? `\n⚠️ *Caution requise :* ${parseInt(formData.guests) * 
                     </div>
                   )}
 
-                  <Button type="submit" variant="gold" size="lg" className="w-full">
-                    Envoyer ma Demande
+                  <Button type="submit" variant="gold" size="lg" className="w-full" disabled={isLoading}>
+                    {isLoading ? "Envoi en cours..." : "Envoyer ma Demande"}
                   </Button>
                 </form>
               </div>
