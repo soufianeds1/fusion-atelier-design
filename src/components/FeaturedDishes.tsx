@@ -13,9 +13,9 @@ const dishes = [
     category: "Pizza",
   },
   {
-    name: "Filetto del Capo (Rossini)",
+    name: "Filetto al Tartufo",
     description:
-      "Filet de bœuf accompagné d'une sauce au foie gras.",
+      "Filet de bœuf nappé d'une sauce à la truffe.",
     image: dish2,
     category: "Carne",
   },
