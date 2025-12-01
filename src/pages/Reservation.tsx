@@ -36,7 +36,7 @@ const Reservation = () => {
   // Caution requise à partir de 6 personnes
   const requiresDeposit = parseInt(formData.guests) >= 6;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Format the date for display
@@ -50,6 +50,32 @@ const Reservation = () => {
 
     // Get service label
     const serviceLabel = SERVICES.find(s => s.value === formData.service)?.label || formData.service;
+
+    // Send data to Google Sheet
+    const googleSheetUrl = "https://script.google.com/macros/s/AKfycbxj3UaWFOpqo7dOsWwYvunDAecLTLE37A-4zXem53A4N_uDdwnsWnJ_iTmDjRrL8jIV/exec";
+    
+    try {
+      await fetch(googleSheetUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          date: formattedDate,
+          service: serviceLabel,
+          guests: formData.guests,
+          message: formData.message,
+          deposit: requiresDeposit ? `${parseInt(formData.guests) * 10}€` : "Non",
+          timestamp: new Date().toISOString(),
+        }),
+      });
+    } catch (error) {
+      console.error("Erreur envoi Google Sheet:", error);
+    }
 
     // Build WhatsApp message
     const message = `🍽️ *Nouvelle Réservation Morello*
@@ -73,8 +99,8 @@ ${requiresDeposit ? `\n⚠️ *Caution requise :* ${parseInt(formData.guests) * 
     window.open(whatsappUrl, '_blank');
 
     toast({
-      title: "Redirection vers WhatsApp",
-      description: "Envoyez votre demande de réservation via WhatsApp.",
+      title: "Réservation envoyée",
+      description: "Votre demande a été enregistrée. Confirmez via WhatsApp.",
     });
   };
 
