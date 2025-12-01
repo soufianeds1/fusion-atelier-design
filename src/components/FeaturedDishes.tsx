@@ -6,7 +6,9 @@ import dish3 from "@/assets/dish-3.jpg";
 import filettoTartufo from "@/assets/filetto-tartufo.jpg";
 import rigatoniNorma from "@/assets/rigatoni-norma.jpg";
 import linguineBolognese from "@/assets/linguine-bolognese.jpg";
+import linguinePestoBurrata from "@/assets/linguine-pesto-burrata.jpg";
 import bresaola from "@/assets/bresaola.jpg";
+import polloPesto from "@/assets/pollo-pesto.jpg";
 
 const dishes = [
   // Carne
@@ -51,6 +53,14 @@ const dishes = [
     category: "Pasta",
     link: "/carte#pasta",
   },
+  {
+    name: "Linguine al Pesto e Burrata",
+    description:
+      "Linguine au pesto de basilic, surmontée de sa burrata crémeuse.",
+    image: linguinePestoBurrata,
+    category: "Pasta",
+    link: "/carte#pasta",
+  },
   // Pizza
   {
     name: "Tartufata",
@@ -65,6 +75,14 @@ const dishes = [
     description:
       "Sauce tomate, Bresaola, Mozzarella Fior Di Latte, basilic, roquette.",
     image: bresaola,
+    category: "Pizza",
+    link: "/carte#pizze",
+  },
+  {
+    name: "La Pollo & Pesto",
+    description:
+      "Pesto, émincé de poulet, Stracciatella, tomates cerises.",
+    image: polloPesto,
     category: "Pizza",
     link: "/carte#pizze",
   },
