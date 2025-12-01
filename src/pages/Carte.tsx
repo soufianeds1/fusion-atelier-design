@@ -170,9 +170,12 @@ const Carte = () => {
   const [activeCategory, setActiveCategory] = useState<string>("antipasti");
 
   useEffect(() => {
-    // Scroll to antipasti section on page load
+    // Scroll to section based on URL hash or default to antipasti
     const timer = setTimeout(() => {
-      const element = document.getElementById("antipasti");
+      const hash = window.location.hash.replace("#", "");
+      const targetId = hash && categories.includes(hash) ? hash : "antipasti";
+      setActiveCategory(targetId);
+      const element = document.getElementById(targetId);
       if (element) {
         const offset = 100;
         const elementPosition = element.getBoundingClientRect().top + window.scrollY;

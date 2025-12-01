@@ -16,6 +16,7 @@ const dishes = [
       "Filet de bœuf accompagné d'une sauce au foie gras.",
     image: dish2,
     category: "Carne",
+    link: "/carte#carne",
   },
   {
     name: "Filetto alla Senape",
@@ -23,6 +24,7 @@ const dishes = [
       "Filet de bœuf, sauce à la moutarde à l'ancienne, stracciatella et oignons caramélisés.",
     image: dish3,
     category: "Carne",
+    link: "/carte#carne",
   },
   {
     name: "Filetto al Tartufo",
@@ -30,6 +32,7 @@ const dishes = [
       "Filet de bœuf nappé d'une sauce à la truffe.",
     image: filettoTartufo,
     category: "Carne",
+    link: "/carte#carne",
   },
   // Pasta
   {
@@ -38,6 +41,7 @@ const dishes = [
       "Rigatoni, tomates cerise, aubergine, ail, émincé de bœuf, ricotta.",
     image: rigatoniNorma,
     category: "Pasta",
+    link: "/carte#pasta",
   },
   {
     name: "Linguine alla Bolognese",
@@ -45,6 +49,7 @@ const dishes = [
       "Linguine à la sauce tomate et à la viande hachée.",
     image: linguineBolognese,
     category: "Pasta",
+    link: "/carte#pasta",
   },
   // Pizza
   {
@@ -53,6 +58,7 @@ const dishes = [
       "Crème de truffe, Stracciatella, champignons, Mozzarella Fior Di Latte, Roquette.",
     image: dish1,
     category: "Pizza",
+    link: "/carte#pizze",
   },
   {
     name: "La Bresaola",
@@ -60,6 +66,7 @@ const dishes = [
       "Sauce tomate, Bresaola, Mozzarella Fior Di Latte, basilic, roquette.",
     image: bresaola,
     category: "Pizza",
+    link: "/carte#pizze",
   },
 ];
 
@@ -83,9 +90,10 @@ export function FeaturedDishes() {
         {/* Dishes Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {dishes.map((dish) => (
-            <div
+            <Link
               key={dish.name}
-              className="group relative overflow-hidden rounded-lg bg-background border border-border hover:border-accent/30 transition-all duration-500"
+              to={dish.link}
+              className="group relative overflow-hidden rounded-lg bg-background border border-border hover:border-accent/30 transition-all duration-500 cursor-pointer"
             >
               {/* Image */}
               <div className="aspect-square overflow-hidden">
@@ -112,7 +120,7 @@ export function FeaturedDishes() {
                   {dish.description}
                 </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
