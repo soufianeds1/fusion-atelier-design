@@ -68,7 +68,27 @@ const Reservation = () => {
     const googleSheetUrl = "https://script.google.com/macros/s/AKfycbxj3UaWFOpqo7dOsWwYvunDAecLTLE37A-4zXem53A4N_uDdwnsWnJ_iTmDjRrL8jIV/exec";
     
     try {
-      // Send data to Google Sheet
+      // Save to database
+      const { error: dbError } = await supabase
+        .from('reservations')
+        .insert({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          date: formattedDate,
+          service: serviceLabel,
+          guests: parseInt(formData.guests),
+          message: formData.message || null,
+          deposit_amount: requiresDeposit ? parseInt(formData.guests) * 10 : null,
+          deposit_confirmed: requiresDeposit ? depositPaid : null,
+          status: 'pending',
+        });
+
+      if (dbError) {
+        console.error("Erreur enregistrement DB:", dbError);
+      }
+
+      // Send data to Google Sheet (keep for backup)
       await fetch(googleSheetUrl, {
         method: "POST",
         mode: "no-cors",
