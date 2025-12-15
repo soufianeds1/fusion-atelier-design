@@ -2,7 +2,8 @@ import { useState, useMemo } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, Users, Phone, Mail } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Calendar, Clock, Users, Phone, Mail, AlertTriangle } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 const SERVICES = [
@@ -37,6 +38,14 @@ const Reservation = () => {
   const requiresDeposit = parseInt(formData.guests) >= 6;
 
   const [isLoading, setIsLoading] = useState(false);
+  const [depositPaid, setDepositPaid] = useState(false);
+
+  // Reset deposit confirmation when guests change below 6
+  const handleGuestsChange = (value: string) => {
+    if (parseInt(value) < 6) {
+      setDepositPaid(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -120,9 +129,16 @@ const Reservation = () => {
           newData.guests = max.toString();
         }
       }
+      // Reset deposit confirmation when changing guests
+      if (name === "guests") {
+        handleGuestsChange(value);
+      }
       return newData;
     });
   };
+
+  // Check if form can be submitted
+  const canSubmit = !requiresDeposit || depositPaid;
 
   return (
     <div className="min-h-screen bg-background">
@@ -270,13 +286,28 @@ const Reservation = () => {
                   </div>
 
                   {requiresDeposit && (
-                    <div className="p-4 bg-accent/10 border border-accent/30 rounded-sm space-y-4">
-                      <p className="text-accent text-sm font-medium">
-                        ⚠️ À partir de 6 personnes, une caution de 10€/pers. sera demandée via PayPal. Non remboursable en cas d'annulation ou de no-show.
-                      </p>
-                      <p className="text-foreground text-sm">
-                        Montant de la caution : <span className="font-semibold text-accent">{parseInt(formData.guests) * 10}€</span>
-                      </p>
+                    <div className="p-4 bg-destructive/10 border border-destructive/30 rounded-sm space-y-4">
+                      <div className="flex items-start gap-2">
+                        <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
+                        <div>
+                          <p className="text-destructive text-sm font-semibold">
+                            Paiement obligatoire avant réservation
+                          </p>
+                          <p className="text-foreground text-sm mt-1">
+                            Pour les groupes de 6 personnes ou plus, une caution de 10€ par personne est <strong>obligatoire</strong>. Sans paiement, la réservation ne pourra pas être validée.
+                          </p>
+                        </div>
+                      </div>
+                      
+                      <div className="bg-background/50 p-3 rounded-sm">
+                        <p className="text-foreground text-sm font-medium">
+                          Montant à payer : <span className="text-lg font-bold text-accent">{parseInt(formData.guests) * 10}€</span>
+                        </p>
+                        <p className="text-muted-foreground text-xs mt-1">
+                          Non remboursable en cas d'annulation ou de no-show
+                        </p>
+                      </div>
+
                       <a
                         href={`https://www.paypal.com/paypalme/LEMORELLO/${parseInt(formData.guests) * 10}EUR`}
                         target="_blank"
@@ -287,13 +318,40 @@ const Reservation = () => {
                           <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.771.771 0 0 1 .761-.654h6.393c2.115 0 3.596.55 4.403 1.635.753 1.013.89 2.333.407 3.924-.016.054-.033.107-.05.162l-.002.006v.001c-.598 2.282-1.77 3.796-3.484 4.504-.86.355-1.865.535-2.99.535H8.007a.77.77 0 0 0-.76.654l-.82 5.226a.77.77 0 0 1-.76.654h-.591a.642.642 0 0 0-.633.74l-.367 2.33z"/>
                           <path d="M19.904 8.96c-.027.113-.057.227-.089.343-.923 3.324-3.067 4.477-6.103 4.477h-.684a.773.773 0 0 0-.76.654l-.788 5.022-.224 1.42a.405.405 0 0 0 .4.466h2.807c.332 0 .614-.241.666-.568l.027-.14.529-3.358.034-.184a.67.67 0 0 1 .66-.568h.42c2.692 0 4.8-1.094 5.417-4.257.257-1.32.124-2.424-.557-3.2a2.66 2.66 0 0 0-.755-.607z"/>
                         </svg>
-                        Payer la caution via PayPal
+                        Étape 1 : Payer {parseInt(formData.guests) * 10}€ via PayPal
                       </a>
+
+                      <div className="flex items-start gap-3 pt-2 border-t border-border">
+                        <Checkbox
+                          id="depositPaid"
+                          checked={depositPaid}
+                          onCheckedChange={(checked) => setDepositPaid(checked === true)}
+                          className="mt-0.5"
+                        />
+                        <label
+                          htmlFor="depositPaid"
+                          className="text-sm cursor-pointer select-none"
+                        >
+                          <span className="font-medium">Étape 2 :</span> Je confirme avoir effectué le paiement de {parseInt(formData.guests) * 10}€ via PayPal
+                        </label>
+                      </div>
+
+                      {!depositPaid && (
+                        <p className="text-destructive text-xs font-medium">
+                          ⚠️ Vous devez payer et confirmer le paiement pour pouvoir envoyer votre réservation
+                        </p>
+                      )}
                     </div>
                   )}
 
-                  <Button type="submit" variant="gold" size="lg" className="w-full" disabled={isLoading}>
-                    {isLoading ? "Envoi en cours..." : "Envoyer ma Demande"}
+                  <Button 
+                    type="submit" 
+                    variant="gold" 
+                    size="lg" 
+                    className="w-full" 
+                    disabled={isLoading || !canSubmit}
+                  >
+                    {isLoading ? "Envoi en cours..." : requiresDeposit && !depositPaid ? "Paiement requis avant réservation" : "Envoyer ma Demande"}
                   </Button>
                 </form>
               </div>
