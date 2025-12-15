@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Calendar, Clock, Users, Phone, Mail, AlertTriangle } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const SERVICES = [
   { value: "19h-21h", label: "1er service (19h - 21h)" },
@@ -67,6 +68,7 @@ const Reservation = () => {
     const googleSheetUrl = "https://script.google.com/macros/s/AKfycbxj3UaWFOpqo7dOsWwYvunDAecLTLE37A-4zXem53A4N_uDdwnsWnJ_iTmDjRrL8jIV/exec";
     
     try {
+      // Send data to Google Sheet
       await fetch(googleSheetUrl, {
         method: "POST",
         mode: "no-cors",
@@ -87,6 +89,34 @@ const Reservation = () => {
         }),
       });
 
+      // Send email notification for groups of 6+ people
+      if (requiresDeposit) {
+        try {
+          const { error } = await supabase.functions.invoke('send-reservation-notification', {
+            body: {
+              name: formData.name,
+              email: formData.email,
+              phone: formData.phone,
+              date: formattedDate,
+              service: serviceLabel,
+              guests: parseInt(formData.guests),
+              message: formData.message,
+              depositAmount: parseInt(formData.guests) * 10,
+              depositConfirmed: depositPaid,
+            },
+          });
+          
+          if (error) {
+            console.error("Erreur envoi notification email:", error);
+          } else {
+            console.log("Notification email envoyée avec succès");
+          }
+        } catch (emailError) {
+          console.error("Erreur envoi notification email:", emailError);
+          // Don't block the reservation if email fails
+        }
+      }
+
       toast({
         title: "Réservation envoyée",
         description: "Votre demande a été enregistrée. Nous vous contacterons bientôt.",
@@ -102,6 +132,7 @@ const Reservation = () => {
         guests: "2",
         message: "",
       });
+      setDepositPaid(false);
     } catch (error) {
       console.error("Erreur envoi Google Sheet:", error);
       toast({
