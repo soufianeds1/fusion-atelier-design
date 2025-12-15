@@ -81,7 +81,8 @@ const Reservation = () => {
           service: serviceLabel,
           guests: formData.guests,
           message: formData.message,
-          deposit: requiresDeposit ? `${parseInt(formData.guests) * 10}€` : "Non",
+          deposit: requiresDeposit ? `${parseInt(formData.guests) * 10}€` : "Non requis",
+          depositConfirmed: requiresDeposit ? (depositPaid ? "Oui - Confirmé par le client" : "Non") : "N/A",
           timestamp: new Date().toISOString(),
         }),
       });
