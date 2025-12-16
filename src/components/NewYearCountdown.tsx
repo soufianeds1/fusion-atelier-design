@@ -93,7 +93,85 @@ export function NewYearCountdown() {
           </div>
         </div>
 
-        <div className="flex justify-center w-full">
+        {/* Menu du Nouvel An */}
+        <div className="mt-12 grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+          {/* Menu */}
+          <div className="bg-background/50 backdrop-blur-sm border border-border rounded-lg p-6">
+            <h3 className="font-display text-2xl text-accent mb-4 text-center">Menu New Year 2026</h3>
+            <p className="text-center text-muted-foreground text-sm mb-6">Amuse bouche • Coupe apéritive</p>
+            
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-display text-lg text-accent/80 italic mb-2">Entrées</h4>
+                <ul className="text-sm text-muted-foreground space-y-1 text-center">
+                  <li>Burrata</li>
+                  <li>Carpaccio de bœuf</li>
+                  <li>Foie gras, chutney de figue</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="font-display text-lg text-accent/80 italic mb-2">Plats principaux</h4>
+                <ul className="text-sm text-muted-foreground space-y-1 text-center">
+                  <li>Filetto al pepe verde</li>
+                  <li>Filetto di salmone</li>
+                  <li>Ravioli al tartuffo</li>
+                  <li>Scaloppina belle milanaise</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="font-display text-lg text-accent/80 italic mb-2">Accompagnements au choix</h4>
+                <ul className="text-sm text-muted-foreground space-y-1 text-center">
+                  <li>Pomme grenaille • Purée de pomme de terre</li>
+                  <li>Frites • Pâtes à la crème</li>
+                  <li>Légumes sautés à la plancha • Riz sauce champignons</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="font-display text-lg text-accent/80 italic mb-2">Desserts</h4>
+                <ul className="text-sm text-muted-foreground space-y-1 text-center">
+                  <li>Fondant au chocolat</li>
+                  <li>Pavlova fruits rouges</li>
+                  <li>Mille feuille renversé</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          {/* Services & Animation */}
+          <div className="space-y-6">
+            <div className="bg-background/50 backdrop-blur-sm border border-border rounded-lg p-6">
+              <h4 className="font-display text-xl text-accent mb-4 text-center">Services & Tarifs</h4>
+              <div className="space-y-3 text-center">
+                <div className="flex justify-between items-center px-4 py-2 bg-wine/10 rounded">
+                  <span className="text-foreground">19h à 21h</span>
+                  <span className="text-accent font-bold text-lg">99€</span>
+                </div>
+                <div className="flex justify-between items-center px-4 py-2 bg-wine/20 rounded">
+                  <span className="text-foreground">21h à 23h</span>
+                  <span className="text-accent font-bold text-lg">119€</span>
+                </div>
+                <div className="flex justify-between items-center px-4 py-2 bg-wine/30 rounded">
+                  <span className="text-foreground">23h à 02h</span>
+                  <span className="text-accent font-bold text-lg">139€</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-background/50 backdrop-blur-sm border border-border rounded-lg p-6">
+              <h4 className="font-display text-xl text-accent mb-4 text-center">Animation</h4>
+              <ul className="text-muted-foreground space-y-2 text-center">
+                <li>🎷 Saxophoniste</li>
+                <li>🎩 Magicien</li>
+                <li>💃 Danseuse brésilienne</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex justify-center w-full mt-10">
           <Button variant="gold" size="xl" asChild>
             <a 
               href="https://wa.me/33753236352?text=Bonjour%2C%20je%20souhaite%20réserver%20pour%20le%20Réveillon%20du%20Nouvel%20An." 
