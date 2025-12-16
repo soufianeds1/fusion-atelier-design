@@ -84,7 +84,7 @@ export function NewYearCountdown() {
           <TimeBlock value={timeLeft.seconds} label="Secondes" />
         </div>
 
-        <div className="text-center">
+        <div className="flex justify-center w-full">
           <Button variant="gold" size="xl" asChild>
             <Link to="/reservation">Réserver pour le Réveillon</Link>
           </Button>
