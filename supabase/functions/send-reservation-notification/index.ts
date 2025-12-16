@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "https://esm.sh/resend@2.0.0";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
@@ -10,15 +11,23 @@ const corsHeaders = {
 };
 
 interface ReservationNotificationRequest {
-  name: string;
-  email: string;
-  phone: string;
-  date: string;
-  service: string;
-  guests: number;
-  message: string;
-  depositAmount: number;
-  depositConfirmed: boolean;
+  reservationId: string;
+}
+
+// Input validation
+function validateUUID(id: string): boolean {
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  return uuidRegex.test(id);
+}
+
+// Sanitize string for HTML output
+function sanitizeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -27,10 +36,65 @@ const handler = async (req: Request): Promise<Response> => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  // Only allow POST
+  if (req.method !== "POST") {
+    return new Response(JSON.stringify({ error: "Method not allowed" }), {
+      status: 405,
+      headers: { "Content-Type": "application/json", ...corsHeaders },
+    });
+  }
+
   try {
     const data: ReservationNotificationRequest = await req.json();
     
-    console.log("Received reservation notification request:", data);
+    console.log("Received reservation notification request for ID:", data.reservationId);
+
+    // Validate reservation ID
+    if (!data.reservationId || !validateUUID(data.reservationId)) {
+      console.error("Invalid reservation ID provided");
+      return new Response(
+        JSON.stringify({ error: "Invalid reservation ID" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    // Create Supabase client with service role to bypass RLS
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
+    // Verify reservation exists in database
+    const { data: reservation, error: dbError } = await supabase
+      .from("reservations")
+      .select("*")
+      .eq("id", data.reservationId)
+      .single();
+
+    if (dbError || !reservation) {
+      console.error("Reservation not found:", dbError);
+      return new Response(
+        JSON.stringify({ error: "Reservation not found" }),
+        {
+          status: 404,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    // Only send notification for groups of 6+
+    if (reservation.guests < 6) {
+      console.log("Reservation does not require notification (less than 6 guests)");
+      return new Response(
+        JSON.stringify({ success: true, message: "No notification needed" }),
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
 
     const { 
       name, 
@@ -40,15 +104,22 @@ const handler = async (req: Request): Promise<Response> => {
       service, 
       guests, 
       message, 
-      depositAmount, 
-      depositConfirmed 
-    } = data;
+      deposit_amount,
+    } = reservation;
+
+    // Sanitize all user inputs for HTML
+    const safeName = sanitizeHtml(name);
+    const safeEmail = sanitizeHtml(email);
+    const safePhone = sanitizeHtml(phone);
+    const safeDate = sanitizeHtml(date);
+    const safeService = sanitizeHtml(service);
+    const safeMessage = message ? sanitizeHtml(message) : '';
 
     // Send notification email to restaurant
     const emailResponse = await resend.emails.send({
       from: "Morello Réservations <onboarding@resend.dev>",
       to: ["contact@morello-paris.fr"],
-      subject: `🍽️ Nouvelle réservation ${guests}+ pers. - ${name}`,
+      subject: `🍽️ Nouvelle réservation ${guests}+ pers. - ${safeName}`,
       html: `
         <!DOCTYPE html>
         <html>
@@ -61,8 +132,8 @@ const handler = async (req: Request): Promise<Response> => {
             .field { margin-bottom: 15px; }
             .label { font-weight: bold; color: #666; font-size: 12px; text-transform: uppercase; }
             .value { font-size: 16px; color: #333; margin-top: 4px; }
-            .deposit-box { background: ${depositConfirmed ? '#d4edda' : '#fff3cd'}; border: 1px solid ${depositConfirmed ? '#c3e6cb' : '#ffc107'}; padding: 15px; border-radius: 8px; margin-top: 20px; }
-            .deposit-status { font-weight: bold; color: ${depositConfirmed ? '#155724' : '#856404'}; }
+            .deposit-box { background: #fff3cd; border: 1px solid #ffc107; padding: 15px; border-radius: 8px; margin-top: 20px; }
+            .deposit-status { font-weight: bold; color: #856404; }
             .footer { text-align: center; padding: 15px; color: #666; font-size: 12px; }
             .warning { background: #fff3cd; border-left: 4px solid #ffc107; padding: 10px 15px; margin-top: 15px; }
           </style>
@@ -76,46 +147,46 @@ const handler = async (req: Request): Promise<Response> => {
             <div class="content">
               <div class="field">
                 <div class="label">Nom</div>
-                <div class="value">${name}</div>
+                <div class="value">${safeName}</div>
               </div>
               <div class="field">
                 <div class="label">Email</div>
-                <div class="value"><a href="mailto:${email}">${email}</a></div>
+                <div class="value"><a href="mailto:${safeEmail}">${safeEmail}</a></div>
               </div>
               <div class="field">
                 <div class="label">Téléphone</div>
-                <div class="value"><a href="tel:${phone}">${phone}</a></div>
+                <div class="value"><a href="tel:${safePhone}">${safePhone}</a></div>
               </div>
               <div class="field">
                 <div class="label">Date</div>
-                <div class="value">${date}</div>
+                <div class="value">${safeDate}</div>
               </div>
               <div class="field">
                 <div class="label">Service</div>
-                <div class="value">${service}</div>
+                <div class="value">${safeService}</div>
               </div>
               <div class="field">
                 <div class="label">Nombre de convives</div>
                 <div class="value">${guests} personnes</div>
               </div>
-              ${message ? `
+              ${safeMessage ? `
               <div class="field">
                 <div class="label">Message</div>
-                <div class="value">${message}</div>
+                <div class="value">${safeMessage}</div>
               </div>
               ` : ''}
               
               <div class="deposit-box">
                 <div class="label">Caution PayPal</div>
                 <div class="value">
-                  <span class="deposit-status">${depositConfirmed ? '✅ Confirmé par le client' : '⚠️ Non confirmé'}</span>
+                  <span class="deposit-status">⏳ À vérifier</span>
                   <br>
-                  Montant attendu: <strong>${depositAmount}€</strong>
+                  Montant attendu: <strong>${deposit_amount || guests * 10}€</strong>
                 </div>
               </div>
               
               <div class="warning">
-                <strong>⚠️ Action requise:</strong> Vérifiez sur votre compte PayPal que le paiement de ${depositAmount}€ a bien été reçu de la part de ${name}.
+                <strong>⚠️ Action requise:</strong> Vérifiez sur votre compte PayPal que le paiement de ${deposit_amount || guests * 10}€ a bien été reçu de la part de ${safeName}.
               </div>
             </div>
             <div class="footer">
