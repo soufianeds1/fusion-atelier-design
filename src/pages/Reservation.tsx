@@ -11,6 +11,7 @@ const SERVICES = [
   { value: "19h-21h", label: "1er service (19h - 21h)" },
   { value: "21h-23h", label: "2ème service (21h - 23h)" },
   { value: "23h-01h", label: "3ème service (23h - 01h)" },
+  { value: "voiturier", label: "Service Voiturier", weekendOnly: true },
 ];
 
 const Reservation = () => {
@@ -180,6 +181,10 @@ const Reservation = () => {
         if (parseInt(prev.guests) > max) {
           newData.guests = max.toString();
         }
+        // Reset service voiturier if not weekend
+        if (!weekend && prev.service === "voiturier") {
+          newData.service = "";
+        }
       }
       // Reset deposit confirmation when changing guests
       if (name === "guests") {
@@ -295,7 +300,7 @@ const Reservation = () => {
                         className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:border-accent focus:outline-none transition-colors"
                       >
                         <option value="">Choisir</option>
-                        {SERVICES.map((s) => (
+                        {SERVICES.filter(s => !s.weekendOnly || isWeekend).map((s) => (
                           <option key={s.value} value={s.value}>
                             {s.label}
                           </option>
