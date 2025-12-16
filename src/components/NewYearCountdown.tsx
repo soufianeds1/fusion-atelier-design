@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-
+import { MessageCircle, AlertTriangle } from "lucide-react";
 interface TimeLeft {
   days: number;
   hours: number;
@@ -84,9 +83,27 @@ export function NewYearCountdown() {
           <TimeBlock value={timeLeft.seconds} label="Secondes" />
         </div>
 
+        {/* WhatsApp Only Alert */}
+        <div className="max-w-xl mx-auto mb-8 p-4 bg-destructive/10 border border-destructive/30 rounded-lg">
+          <div className="flex items-center gap-3 text-center justify-center">
+            <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0" />
+            <p className="text-foreground text-sm font-medium">
+              Réservation Nouvel An <span className="text-destructive font-bold">UNIQUEMENT via WhatsApp</span> (acompte obligatoire)
+            </p>
+          </div>
+        </div>
+
         <div className="flex justify-center w-full">
           <Button variant="gold" size="xl" asChild>
-            <Link to="/reservation">Réserver pour le Réveillon</Link>
+            <a 
+              href="https://wa.me/33753236352?text=Bonjour%2C%20je%20souhaite%20réserver%20pour%20le%20Réveillon%20du%20Nouvel%20An." 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2"
+            >
+              <MessageCircle size={20} />
+              Réserver sur WhatsApp
+            </a>
           </Button>
         </div>
       </div>
