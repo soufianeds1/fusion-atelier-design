@@ -40,12 +40,12 @@ const Reservation = () => {
   const requiresDeposit = parseInt(formData.guests) >= 6;
 
   const [isLoading, setIsLoading] = useState(false);
-  const [depositPaid, setDepositPaid] = useState(false);
+  const [depositAcknowledged, setDepositAcknowledged] = useState(false);
 
-  // Reset deposit confirmation when guests change below 6
+  // Reset acknowledgment when guests change below 6
   const handleGuestsChange = (value: string) => {
     if (parseInt(value) < 6) {
-      setDepositPaid(false);
+      setDepositAcknowledged(false);
     }
   };
 
@@ -69,8 +69,8 @@ const Reservation = () => {
     const googleSheetUrl = "https://script.google.com/macros/s/AKfycbxj3UaWFOpqo7dOsWwYvunDAecLTLE37A-4zXem53A4N_uDdwnsWnJ_iTmDjRrL8jIV/exec";
     
     try {
-      // Save to database
-      const { error: dbError } = await supabase
+      // Save to database - deposit_confirmed is always false, admin must verify
+      const { data: reservation, error: dbError } = await supabase
         .from('reservations')
         .insert({
           name: formData.name,
@@ -81,12 +81,15 @@ const Reservation = () => {
           guests: parseInt(formData.guests),
           message: formData.message || null,
           deposit_amount: requiresDeposit ? parseInt(formData.guests) * 10 : null,
-          deposit_confirmed: requiresDeposit ? depositPaid : null,
+          deposit_confirmed: false, // Always false - admin must verify payment manually
           status: 'pending',
-        });
+        })
+        .select('id')
+        .single();
 
       if (dbError) {
         console.error("Erreur enregistrement DB:", dbError);
+        throw dbError;
       }
 
       // Send data to Google Sheet (keep for backup)
@@ -105,25 +108,17 @@ const Reservation = () => {
           guests: formData.guests,
           message: formData.message,
           deposit: requiresDeposit ? `${parseInt(formData.guests) * 10}€` : "Non requis",
-          depositConfirmed: requiresDeposit ? (depositPaid ? "Oui - Confirmé par le client" : "Non") : "N/A",
+          depositConfirmed: requiresDeposit ? "À vérifier par admin" : "N/A",
           timestamp: new Date().toISOString(),
         }),
       });
 
       // Send email notification for groups of 6+ people
-      if (requiresDeposit) {
+      if (requiresDeposit && reservation?.id) {
         try {
           const { error } = await supabase.functions.invoke('send-reservation-notification', {
             body: {
-              name: formData.name,
-              email: formData.email,
-              phone: formData.phone,
-              date: formattedDate,
-              service: serviceLabel,
-              guests: parseInt(formData.guests),
-              message: formData.message,
-              depositAmount: parseInt(formData.guests) * 10,
-              depositConfirmed: depositPaid,
+              reservationId: reservation.id,
             },
           });
           
@@ -140,7 +135,9 @@ const Reservation = () => {
 
       toast({
         title: "Réservation envoyée",
-        description: "Votre demande a été enregistrée. Nous vous contacterons bientôt.",
+        description: requiresDeposit 
+          ? "Votre demande a été enregistrée. Un admin vérifiera votre paiement PayPal."
+          : "Votre demande a été enregistrée. Nous vous contacterons bientôt.",
       });
 
       // Reset form
@@ -153,9 +150,9 @@ const Reservation = () => {
         guests: "2",
         message: "",
       });
-      setDepositPaid(false);
+      setDepositAcknowledged(false);
     } catch (error) {
-      console.error("Erreur envoi Google Sheet:", error);
+      console.error("Erreur envoi réservation:", error);
       toast({
         title: "Erreur",
         description: "Une erreur est survenue. Veuillez réessayer.",
@@ -195,7 +192,7 @@ const Reservation = () => {
   };
 
   // Check if form can be submitted
-  const canSubmit = !requiresDeposit || depositPaid;
+  const canSubmit = !requiresDeposit || depositAcknowledged;
 
   return (
     <div className="min-h-screen bg-background">
@@ -380,22 +377,26 @@ const Reservation = () => {
 
                       <div className="flex items-start gap-3 pt-2 border-t border-border">
                         <Checkbox
-                          id="depositPaid"
-                          checked={depositPaid}
-                          onCheckedChange={(checked) => setDepositPaid(checked === true)}
+                          id="depositAcknowledged"
+                          checked={depositAcknowledged}
+                          onCheckedChange={(checked) => setDepositAcknowledged(checked === true)}
                           className="mt-0.5"
                         />
                         <label
-                          htmlFor="depositPaid"
+                          htmlFor="depositAcknowledged"
                           className="text-sm cursor-pointer select-none"
                         >
-                          <span className="font-medium">Étape 2 :</span> Je confirme avoir effectué le paiement de {parseInt(formData.guests) * 10}€ via PayPal
+                          <span className="font-medium">Étape 2 :</span> J'ai effectué le paiement de {parseInt(formData.guests) * 10}€ via PayPal (sera vérifié par l'équipe)
                         </label>
                       </div>
 
-                      {!depositPaid && (
+                      <p className="text-muted-foreground text-xs">
+                        Note : Votre paiement sera vérifié manuellement par notre équipe avant confirmation de la réservation.
+                      </p>
+
+                      {!depositAcknowledged && (
                         <p className="text-destructive text-xs font-medium">
-                          ⚠️ Vous devez payer et confirmer le paiement pour pouvoir envoyer votre réservation
+                          ⚠️ Vous devez effectuer le paiement et cocher la case pour envoyer votre réservation
                         </p>
                       )}
                     </div>
@@ -408,7 +409,7 @@ const Reservation = () => {
                     className="w-full" 
                     disabled={isLoading || !canSubmit}
                   >
-                    {isLoading ? "Envoi en cours..." : requiresDeposit && !depositPaid ? "Paiement requis avant réservation" : "Envoyer ma Demande"}
+                    {isLoading ? "Envoi en cours..." : requiresDeposit && !depositAcknowledged ? "Paiement requis avant réservation" : "Envoyer ma Demande"}
                   </Button>
                 </form>
               </div>
