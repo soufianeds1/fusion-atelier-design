@@ -120,16 +120,20 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar */}
+          {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
             <p>© 2024 LE MORELLO. Tous droits réservés.</p>
-            <div className="flex gap-6">
+            <div className="flex flex-wrap justify-center gap-4 md:gap-6">
               <span>Accès PMR</span>
               <span>Terrasse</span>
               <span>Climatisation</span>
               <span>Privatisation</span>
+              <span className="text-accent font-medium">🚗 Voiturier Ven-Sam-Dim</span>
             </div>
+          </div>
+          <div className="mt-4 text-center text-xs text-muted-foreground">
+            <span className="font-medium text-foreground">Paiements :</span> CB • Espèces | <span className="font-medium text-foreground">Acompte :</span> PayPal ou espèces sur place
           </div>
         </div>
       </div>

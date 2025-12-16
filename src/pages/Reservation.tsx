@@ -10,7 +10,6 @@ const SERVICES = [
   { value: "19h-21h", label: "1er service (19h - 21h)" },
   { value: "21h-23h", label: "2ème service (21h - 23h)" },
   { value: "23h-01h", label: "3ème service (23h - 01h)" },
-  { value: "voiturier", label: "Service Voiturier", weekendOnly: true },
 ];
 
 const Reservation = () => {
@@ -281,7 +280,7 @@ const Reservation = () => {
                         className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:border-accent focus:outline-none transition-colors"
                       >
                         <option value="">Choisir</option>
-                        {SERVICES.filter(s => !s.weekendOnly || isWeekend).map((s) => (
+                        {SERVICES.map((s) => (
                           <option key={s.value} value={s.value}>
                             {s.label}
                           </option>
@@ -434,12 +433,13 @@ const Reservation = () => {
                     </div>
                     <div>
                       <h3 className="text-foreground font-medium mb-2">Modes de Paiement</h3>
-                      <p>Espèces • PayPal</p>
-                      <p className="text-sm mt-1 text-muted-foreground/70">Caution via PayPal uniquement</p>
+                      <p><span className="text-foreground">Au restaurant :</span> Carte bancaire • Espèces</p>
+                      <p className="mt-1"><span className="text-foreground">Acompte réservation :</span> PayPal ou espèces sur place</p>
                     </div>
                     <div>
                       <h3 className="text-foreground font-medium mb-2">Services</h3>
                       <p>Climatisation • Wifi gratuit</p>
+                      <p className="text-accent mt-2 font-medium">🚗 Service voiturier disponible Ven-Sam-Dim</p>
                     </div>
                   </div>
                 </div>
