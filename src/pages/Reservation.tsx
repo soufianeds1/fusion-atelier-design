@@ -70,7 +70,7 @@ const Reservation = () => {
     
     try {
       // Save to database - deposit_confirmed is always false, admin must verify
-      const { data: reservation, error: dbError } = await supabase
+      const { error: dbError } = await supabase
         .from('reservations')
         .insert({
           name: formData.name,
@@ -83,9 +83,7 @@ const Reservation = () => {
           deposit_amount: requiresDeposit ? parseInt(formData.guests) * 10 : null,
           deposit_confirmed: false, // Always false - admin must verify payment manually
           status: 'pending',
-        })
-        .select('id')
-        .single();
+        });
 
       if (dbError) {
         console.error("Erreur enregistrement DB:", dbError);
