@@ -37,10 +37,12 @@ export function ReservationCTA() {
             </Button>
           </div>
 
-          {/* Payment Info */}
-          <p className="text-muted-foreground text-sm mt-8">
-            Espèces • PayPal acceptés
-          </p>
+          {/* Payment & Services Info */}
+          <div className="mt-8 space-y-2 text-sm text-muted-foreground">
+            <p><span className="text-foreground font-medium">Au restaurant :</span> Carte bancaire • Espèces</p>
+            <p><span className="text-foreground font-medium">Acompte réservation :</span> PayPal ou espèces sur place</p>
+            <p className="text-accent">🚗 Service voiturier disponible le week-end (Ven-Sam-Dim)</p>
+          </div>
         </div>
       </div>
     </section>
