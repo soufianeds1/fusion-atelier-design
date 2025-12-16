@@ -220,7 +220,7 @@ const Carte = () => {
               asChild
             >
               <a 
-                href="https://morello-paris.fr/wp-content/uploads/MENU.pdf" 
+                href="/MENU.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer"
               >
