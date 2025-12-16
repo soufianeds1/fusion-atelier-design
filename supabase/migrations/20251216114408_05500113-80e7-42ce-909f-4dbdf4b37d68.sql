@@ -1,0 +1,16 @@
+-- Drop existing restrictive policies
+DROP POLICY IF EXISTS "Admins can view all roles" ON public.user_roles;
+DROP POLICY IF EXISTS "Admins can manage roles" ON public.user_roles;
+
+-- Create proper PERMISSIVE policies (default type)
+CREATE POLICY "Admins can view all roles"
+ON public.user_roles
+FOR SELECT
+TO authenticated
+USING (public.has_role(auth.uid(), 'admin'));
+
+CREATE POLICY "Admins can manage roles" 
+ON public.user_roles
+FOR ALL
+TO authenticated
+USING (public.has_role(auth.uid(), 'admin'));
