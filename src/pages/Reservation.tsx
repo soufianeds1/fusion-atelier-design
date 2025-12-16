@@ -113,25 +113,8 @@ const Reservation = () => {
         }),
       });
 
-      // Send email notification for groups of 6+ people
-      if (requiresDeposit && reservation?.id) {
-        try {
-          const { error } = await supabase.functions.invoke('send-reservation-notification', {
-            body: {
-              reservationId: reservation.id,
-            },
-          });
-          
-          if (error) {
-            console.error("Erreur envoi notification email:", error);
-          } else {
-            console.log("Notification email envoyée avec succès");
-          }
-        } catch (emailError) {
-          console.error("Erreur envoi notification email:", emailError);
-          // Don't block the reservation if email fails
-        }
-      }
+      // Note: Email notifications for large groups are handled by admins via the dashboard
+      // The Edge Function requires authentication and cannot be called from public forms
 
       toast({
         title: "Réservation envoyée",
