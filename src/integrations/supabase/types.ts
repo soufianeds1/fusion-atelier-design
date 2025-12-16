@@ -14,54 +14,6 @@ export type Database = {
   }
   public: {
     Tables: {
-      reservations: {
-        Row: {
-          created_at: string
-          date: string
-          deposit_amount: number | null
-          deposit_confirmed: boolean | null
-          email: string
-          guests: number
-          id: string
-          message: string | null
-          name: string
-          phone: string
-          service: string
-          status: string
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          date: string
-          deposit_amount?: number | null
-          deposit_confirmed?: boolean | null
-          email: string
-          guests: number
-          id?: string
-          message?: string | null
-          name: string
-          phone: string
-          service: string
-          status?: string
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          date?: string
-          deposit_amount?: number | null
-          deposit_confirmed?: boolean | null
-          email?: string
-          guests?: number
-          id?: string
-          message?: string | null
-          name?: string
-          phone?: string
-          service?: string
-          status?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
       user_roles: {
         Row: {
           created_at: string
