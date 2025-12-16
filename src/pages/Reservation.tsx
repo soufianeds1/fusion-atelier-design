@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Calendar, Clock, Users, Phone, Mail, AlertTriangle } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
 
 const SERVICES = [
   { value: "19h-21h", label: "1er service (19h - 21h)" },
@@ -69,28 +68,7 @@ const Reservation = () => {
     const googleSheetUrl = "https://script.google.com/macros/s/AKfycbxj3UaWFOpqo7dOsWwYvunDAecLTLE37A-4zXem53A4N_uDdwnsWnJ_iTmDjRrL8jIV/exec";
     
     try {
-      // Save to database - deposit_confirmed is always false, admin must verify
-      const { error: dbError } = await supabase
-        .from('reservations')
-        .insert({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          date: formattedDate,
-          service: serviceLabel,
-          guests: parseInt(formData.guests),
-          message: formData.message || null,
-          deposit_amount: requiresDeposit ? parseInt(formData.guests) * 10 : null,
-          deposit_confirmed: false, // Always false - admin must verify payment manually
-          status: 'pending',
-        });
-
-      if (dbError) {
-        console.error("Erreur enregistrement DB:", dbError);
-        throw dbError;
-      }
-
-      // Send data to Google Sheet (keep for backup)
+      // Send data to Google Sheet
       await fetch(googleSheetUrl, {
         method: "POST",
         mode: "no-cors",
@@ -106,18 +84,15 @@ const Reservation = () => {
           guests: formData.guests,
           message: formData.message,
           deposit: requiresDeposit ? `${parseInt(formData.guests) * 10}€` : "Non requis",
-          depositConfirmed: requiresDeposit ? "À vérifier par admin" : "N/A",
+          depositConfirmed: requiresDeposit ? "À vérifier" : "N/A",
           timestamp: new Date().toISOString(),
         }),
       });
 
-      // Note: Email notifications for large groups are handled by admins via the dashboard
-      // The Edge Function requires authentication and cannot be called from public forms
-
       toast({
         title: "Réservation envoyée",
         description: requiresDeposit 
-          ? "Votre demande a été enregistrée. Un admin vérifiera votre paiement PayPal."
+          ? "Votre demande a été enregistrée. Nous vérifierons votre paiement PayPal."
           : "Votre demande a été enregistrée. Nous vous contacterons bientôt.",
       });
 
