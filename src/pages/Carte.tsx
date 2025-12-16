@@ -2,6 +2,8 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { FileText } from "lucide-react";
 
 const menuCategories = [
   {
@@ -212,6 +214,20 @@ const Carte = () => {
               Une invitation au voyage à travers nos créations où se mêlent 
               traditions italiennes et saveurs raffinées.
             </p>
+            <Button 
+              variant="outline" 
+              className="mt-6"
+              asChild
+            >
+              <a 
+                href="https://morello-paris.fr/wp-content/uploads/MENU.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <FileText className="mr-2 h-4 w-4" />
+                Voir la carte PDF
+              </a>
+            </Button>
           </div>
         </section>
 
