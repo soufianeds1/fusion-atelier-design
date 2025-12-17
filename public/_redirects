@@ -1,0 +1,2 @@
+# Redirect old WordPress QR code URL to new PDF location
+/wp-content/uploads/MENU.pdf /MENU.pdf 301
