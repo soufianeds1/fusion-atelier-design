@@ -64,7 +64,7 @@ const Reservation = () => {
     const serviceLabel = SERVICES.find(s => s.value === formData.service)?.label || formData.service;
 
     // Send data to Google Sheet
-    const googleSheetUrl = "https://script.google.com/macros/s/AKfycbxj3UaWFOpqo7dOsWwYvunDAecLTLE37A-4zXem53A4N_uDdwnsWnJ_iTmDjRrL8jIV/exec";
+    const googleSheetUrl = "https://script.google.com/macros/s/AKfycbyB3vwoRUTPLub3uvcY34xBJIwm7ot9yzmrDcOr2xCUh9dFB53rj09Ov_EN1PMduhxxBg/exec";
     
     try {
       // Send data to Google Sheet
