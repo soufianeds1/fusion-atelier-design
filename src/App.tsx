@@ -2,7 +2,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
 import Index from "./pages/Index";
 import Carte from "./pages/Carte";
 import Menu from "./pages/Menu";
@@ -10,6 +11,14 @@ import Histoire from "./pages/Histoire";
 import Reservation from "./pages/Reservation";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+
+// Redirect to static PDF file
+const PDFRedirect = () => {
+  useEffect(() => {
+    window.location.href = "/MENU.pdf";
+  }, []);
+  return null;
+};
 
 const queryClient = new QueryClient();
 
@@ -27,7 +36,7 @@ const App = () => (
           <Route path="/reservation" element={<Reservation />} />
           <Route path="/contact" element={<Contact />} />
           {/* Redirect old WordPress QR code URL */}
-          <Route path="/wp-content/uploads/MENU.pdf" element={<Navigate to="/MENU.pdf" replace />} />
+          <Route path="/wp-content/uploads/MENU.pdf" element={<PDFRedirect />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
