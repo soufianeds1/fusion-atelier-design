@@ -116,7 +116,7 @@ export function NewYearCountdown() {
                   <li>Filetto al pepe verde</li>
                   <li>Filetto di salmone</li>
                   <li>Ravioli al tartuffo</li>
-                  <li>Scaloppina belle milanaise</li>
+                  <li>Scaloppina bella milanaise</li>
                 </ul>
               </div>
               
