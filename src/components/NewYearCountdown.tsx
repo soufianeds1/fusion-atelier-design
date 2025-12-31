@@ -10,69 +10,165 @@ interface TimeLeft {
   seconds: number;
 }
 
-// Firework explosion component
+// Firework explosion component with multiple layers
 const Firework = ({ delay, x, y }: { delay: number; x: string; y: string }) => {
-  const colors = [
-    "hsl(45, 100%, 60%)", // Gold
-    "hsl(0, 70%, 50%)",   // Wine red
-    "hsl(30, 90%, 55%)",  // Orange
-    "hsl(280, 70%, 60%)", // Purple
-    "hsl(180, 70%, 50%)", // Cyan
+  const colorSets = [
+    ["hsl(45, 100%, 65%)", "hsl(40, 100%, 50%)", "hsl(50, 100%, 70%)"], // Gold
+    ["hsl(0, 80%, 55%)", "hsl(350, 90%, 45%)", "hsl(10, 85%, 60%)"], // Red
+    ["hsl(30, 100%, 60%)", "hsl(25, 100%, 50%)", "hsl(35, 100%, 70%)"], // Orange
+    ["hsl(280, 80%, 65%)", "hsl(270, 90%, 55%)", "hsl(290, 75%, 70%)"], // Purple
+    ["hsl(180, 80%, 55%)", "hsl(170, 90%, 45%)", "hsl(190, 75%, 60%)"], // Cyan
+    ["hsl(320, 80%, 60%)", "hsl(330, 90%, 50%)", "hsl(310, 75%, 65%)"], // Pink
+    ["hsl(120, 70%, 50%)", "hsl(130, 80%, 45%)", "hsl(110, 65%, 55%)"], // Green
   ];
-  const particleCount = 12;
-  const color = colors[Math.floor(Math.random() * colors.length)];
+  const primaryParticles = 20;
+  const secondaryParticles = 16;
+  const sparkParticles = 24;
+  const colorSet = colorSets[Math.floor(Math.random() * colorSets.length)];
   
   return (
     <div className="absolute" style={{ left: x, top: y }}>
-      {Array.from({ length: particleCount }).map((_, i) => {
-        const angle = (i / particleCount) * 360;
-        const distance = 60 + Math.random() * 40;
+      {/* Primary explosion ring */}
+      {Array.from({ length: primaryParticles }).map((_, i) => {
+        const angle = (i / primaryParticles) * 360;
+        const distance = 80 + Math.random() * 50;
         const radians = (angle * Math.PI) / 180;
         const endX = Math.cos(radians) * distance;
         const endY = Math.sin(radians) * distance;
         
         return (
           <motion.div
-            key={i}
-            className="absolute w-2 h-2 rounded-full"
+            key={`primary-${i}`}
+            className="absolute w-3 h-3 rounded-full"
             style={{ 
-              background: color,
-              boxShadow: `0 0 6px ${color}, 0 0 12px ${color}`,
+              background: colorSet[0],
+              boxShadow: `0 0 8px ${colorSet[0]}, 0 0 16px ${colorSet[0]}, 0 0 24px ${colorSet[1]}`,
             }}
             initial={{ x: 0, y: 0, opacity: 0, scale: 0 }}
             animate={{ 
-              x: [0, endX],
-              y: [0, endY],
+              x: [0, endX * 0.3, endX],
+              y: [0, endY * 0.3, endY + 20],
               opacity: [0, 1, 1, 0],
-              scale: [0, 1.5, 1, 0],
+              scale: [0, 2, 1.5, 0],
             }}
             transition={{ 
-              duration: 1.2,
+              duration: 1.5,
               delay: delay,
               repeat: Infinity,
-              repeatDelay: 3 + Math.random() * 2,
+              repeatDelay: 2.5 + Math.random() * 1.5,
               ease: "easeOut"
             }}
           />
         );
       })}
-      {/* Center flash */}
+      
+      {/* Secondary explosion ring - smaller, different timing */}
+      {Array.from({ length: secondaryParticles }).map((_, i) => {
+        const angle = (i / secondaryParticles) * 360 + 11.25;
+        const distance = 50 + Math.random() * 30;
+        const radians = (angle * Math.PI) / 180;
+        const endX = Math.cos(radians) * distance;
+        const endY = Math.sin(radians) * distance;
+        
+        return (
+          <motion.div
+            key={`secondary-${i}`}
+            className="absolute w-2 h-2 rounded-full"
+            style={{ 
+              background: colorSet[1],
+              boxShadow: `0 0 6px ${colorSet[1]}, 0 0 12px ${colorSet[2]}`,
+            }}
+            initial={{ x: 0, y: 0, opacity: 0, scale: 0 }}
+            animate={{ 
+              x: [0, endX],
+              y: [0, endY + 15],
+              opacity: [0, 1, 0.8, 0],
+              scale: [0, 1.8, 1, 0],
+            }}
+            transition={{ 
+              duration: 1.3,
+              delay: delay + 0.1,
+              repeat: Infinity,
+              repeatDelay: 2.5 + Math.random() * 1.5,
+              ease: "easeOut"
+            }}
+          />
+        );
+      })}
+      
+      {/* Spark trails */}
+      {Array.from({ length: sparkParticles }).map((_, i) => {
+        const angle = (i / sparkParticles) * 360 + Math.random() * 15;
+        const distance = 100 + Math.random() * 60;
+        const radians = (angle * Math.PI) / 180;
+        const endX = Math.cos(radians) * distance;
+        const endY = Math.sin(radians) * distance;
+        
+        return (
+          <motion.div
+            key={`spark-${i}`}
+            className="absolute w-1 h-1 rounded-full"
+            style={{ 
+              background: colorSet[2],
+              boxShadow: `0 0 4px ${colorSet[2]}, 0 0 8px white`,
+            }}
+            initial={{ x: 0, y: 0, opacity: 0, scale: 0 }}
+            animate={{ 
+              x: [0, endX * 0.5, endX],
+              y: [0, endY * 0.5, endY + 40],
+              opacity: [0, 1, 0.6, 0],
+              scale: [0, 1, 0.5, 0],
+            }}
+            transition={{ 
+              duration: 1.8,
+              delay: delay + 0.05,
+              repeat: Infinity,
+              repeatDelay: 2.5 + Math.random() * 1.5,
+              ease: "easeOut"
+            }}
+          />
+        );
+      })}
+      
+      {/* Center flash - bigger and brighter */}
       <motion.div
-        className="absolute w-4 h-4 rounded-full -translate-x-1/2 -translate-y-1/2"
+        className="absolute w-6 h-6 rounded-full -translate-x-1/2 -translate-y-1/2"
         style={{ 
-          background: "white",
-          boxShadow: `0 0 20px white, 0 0 40px ${color}`,
+          background: "radial-gradient(circle, white 0%, transparent 70%)",
+          boxShadow: `0 0 30px white, 0 0 60px ${colorSet[0]}, 0 0 90px ${colorSet[1]}`,
         }}
         initial={{ opacity: 0, scale: 0 }}
         animate={{ 
-          opacity: [0, 1, 0],
-          scale: [0, 2, 0],
+          opacity: [0, 1, 0.5, 0],
+          scale: [0, 3, 1.5, 0],
         }}
         transition={{ 
-          duration: 0.4,
+          duration: 0.6,
           delay: delay,
           repeat: Infinity,
-          repeatDelay: 3 + Math.random() * 2,
+          repeatDelay: 2.5 + Math.random() * 1.5,
+          ease: "easeOut"
+        }}
+      />
+      
+      {/* Glow ring */}
+      <motion.div
+        className="absolute w-20 h-20 rounded-full -translate-x-1/2 -translate-y-1/2"
+        style={{ 
+          background: "transparent",
+          border: `2px solid ${colorSet[0]}`,
+          boxShadow: `0 0 20px ${colorSet[0]}, inset 0 0 20px ${colorSet[0]}`,
+        }}
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ 
+          opacity: [0, 0.8, 0],
+          scale: [0, 2, 3],
+        }}
+        transition={{ 
+          duration: 1,
+          delay: delay,
+          repeat: Infinity,
+          repeatDelay: 2.5 + Math.random() * 1.5,
           ease: "easeOut"
         }}
       />
@@ -211,11 +307,11 @@ export function NewYearCountdown() {
     y: `${10 + Math.random() * 80}%`
   }));
 
-  // Generate firework positions
-  const fireworks = Array.from({ length: 6 }, (_, i) => ({
-    delay: i * 0.8,
-    x: `${15 + Math.random() * 70}%`,
-    y: `${10 + Math.random() * 40}%`
+  // Generate firework positions - more fireworks!
+  const fireworks = Array.from({ length: 10 }, (_, i) => ({
+    delay: i * 0.5,
+    x: `${10 + Math.random() * 80}%`,
+    y: `${5 + Math.random() * 50}%`
   }));
   return (
     <section className="py-20 px-4 bg-gradient-to-b from-background via-midnight/30 to-background relative overflow-hidden">
