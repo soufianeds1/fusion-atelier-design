@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, AlertTriangle, Sparkles, PartyPopper, Volume2, VolumeX } from "lucide-react";
+import { MessageCircle, AlertTriangle, Sparkles, PartyPopper, Volume2, VolumeX, Music, Music2 } from "lucide-react";
 
 interface TimeLeft {
   days: number;
@@ -68,6 +68,151 @@ const createExplosionSound = (audioContext: AudioContext, volume: number = 0.3) 
   noiseSource.stop(now + 0.5);
   crackleSource.stop(now + 0.35);
 };
+
+// Festive background music synthesizer
+class FestiveMusic {
+  private audioContext: AudioContext;
+  private masterGain: GainNode;
+  private isPlaying: boolean = false;
+  private intervalIds: NodeJS.Timeout[] = [];
+
+  constructor(audioContext: AudioContext) {
+    this.audioContext = audioContext;
+    this.masterGain = audioContext.createGain();
+    this.masterGain.gain.value = 0.15;
+    this.masterGain.connect(audioContext.destination);
+  }
+
+  // Play a bell chime
+  private playBell(frequency: number, time: number, duration: number = 2) {
+    const osc = this.audioContext.createOscillator();
+    const osc2 = this.audioContext.createOscillator();
+    const gain = this.audioContext.createGain();
+    
+    osc.type = 'sine';
+    osc.frequency.value = frequency;
+    osc2.type = 'sine';
+    osc2.frequency.value = frequency * 2.5; // Overtone
+    
+    const osc2Gain = this.audioContext.createGain();
+    osc2Gain.gain.value = 0.3;
+    
+    gain.gain.setValueAtTime(0.4, time);
+    gain.gain.exponentialRampToValueAtTime(0.01, time + duration);
+    
+    osc.connect(gain);
+    osc2.connect(osc2Gain);
+    osc2Gain.connect(gain);
+    gain.connect(this.masterGain);
+    
+    osc.start(time);
+    osc2.start(time);
+    osc.stop(time + duration);
+    osc2.stop(time + duration);
+  }
+
+  // Play ambient pad chord
+  private playPad(frequencies: number[], time: number, duration: number = 4) {
+    frequencies.forEach((freq, i) => {
+      const osc = this.audioContext.createOscillator();
+      const gain = this.audioContext.createGain();
+      const filter = this.audioContext.createBiquadFilter();
+      
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      
+      filter.type = 'lowpass';
+      filter.frequency.value = 800;
+      
+      gain.gain.setValueAtTime(0, time);
+      gain.gain.linearRampToValueAtTime(0.15, time + 0.5);
+      gain.gain.setValueAtTime(0.15, time + duration - 1);
+      gain.gain.linearRampToValueAtTime(0.01, time + duration);
+      
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(this.masterGain);
+      
+      osc.start(time);
+      osc.stop(time + duration);
+    });
+  }
+
+  // Play sparkle/twinkle sound
+  private playSparkle(time: number) {
+    const frequencies = [1200, 1500, 1800, 2100];
+    frequencies.forEach((freq, i) => {
+      const osc = this.audioContext.createOscillator();
+      const gain = this.audioContext.createGain();
+      
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      
+      const startTime = time + i * 0.05;
+      gain.gain.setValueAtTime(0.1, startTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.3);
+      
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+      
+      osc.start(startTime);
+      osc.stop(startTime + 0.4);
+    });
+  }
+
+  start() {
+    if (this.isPlaying) return;
+    this.isPlaying = true;
+
+    const bellNotes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+    const chords = [
+      [261.63, 329.63, 392.00], // C major
+      [293.66, 369.99, 440.00], // D minor  
+      [349.23, 440.00, 523.25], // F major
+      [392.00, 493.88, 587.33], // G major
+    ];
+
+    // Play initial pad
+    const now = this.audioContext.currentTime;
+    this.playPad(chords[0], now, 6);
+
+    // Schedule bells at random intervals
+    const bellInterval = setInterval(() => {
+      if (!this.isPlaying) return;
+      const note = bellNotes[Math.floor(Math.random() * bellNotes.length)];
+      this.playBell(note, this.audioContext.currentTime, 2 + Math.random());
+    }, 1500 + Math.random() * 2000);
+    this.intervalIds.push(bellInterval);
+
+    // Schedule chord changes
+    let chordIndex = 0;
+    const padInterval = setInterval(() => {
+      if (!this.isPlaying) return;
+      chordIndex = (chordIndex + 1) % chords.length;
+      this.playPad(chords[chordIndex], this.audioContext.currentTime, 6);
+    }, 5000);
+    this.intervalIds.push(padInterval);
+
+    // Schedule sparkles
+    const sparkleInterval = setInterval(() => {
+      if (!this.isPlaying) return;
+      if (Math.random() > 0.5) {
+        this.playSparkle(this.audioContext.currentTime);
+      }
+    }, 3000 + Math.random() * 2000);
+    this.intervalIds.push(sparkleInterval);
+  }
+
+  stop() {
+    this.isPlaying = false;
+    this.intervalIds.forEach(id => clearInterval(id));
+    this.intervalIds = [];
+  }
+
+  setVolume(volume: number) {
+    this.masterGain.gain.value = volume;
+  }
+}
 
 // Firework explosion component with multiple layers
 const Firework = ({ delay, x, y }: { delay: number; x: string; y: string }) => {
@@ -284,18 +429,23 @@ const FloatingSparkle = ({ delay, x, y }: { delay: number; x: string; y: string 
 export function NewYearCountdown() {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [soundEnabled, setSoundEnabled] = useState(false);
+  const [musicEnabled, setMusicEnabled] = useState(false);
   const audioContextRef = useRef<AudioContext | null>(null);
   const soundIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const festiveMusicRef = useRef<FestiveMusic | null>(null);
 
   // Initialize audio context on user interaction
   const initAudio = useCallback(() => {
     if (!audioContextRef.current) {
       audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
     }
+    if (!festiveMusicRef.current && audioContextRef.current) {
+      festiveMusicRef.current = new FestiveMusic(audioContextRef.current);
+    }
     return audioContextRef.current;
   }, []);
 
-  // Toggle sound
+  // Toggle explosion sounds
   const toggleSound = useCallback(() => {
     if (!soundEnabled) {
       const ctx = initAudio();
@@ -307,6 +457,22 @@ export function NewYearCountdown() {
       setSoundEnabled(false);
     }
   }, [soundEnabled, initAudio]);
+
+  // Toggle background music
+  const toggleMusic = useCallback(() => {
+    const ctx = initAudio();
+    if (ctx.state === 'suspended') {
+      ctx.resume();
+    }
+    
+    if (!musicEnabled) {
+      festiveMusicRef.current?.start();
+      setMusicEnabled(true);
+    } else {
+      festiveMusicRef.current?.stop();
+      setMusicEnabled(false);
+    }
+  }, [musicEnabled, initAudio]);
 
   // Play random explosion sounds
   useEffect(() => {
@@ -345,6 +511,7 @@ export function NewYearCountdown() {
       if (soundIntervalRef.current) {
         clearTimeout(soundIntervalRef.current);
       }
+      festiveMusicRef.current?.stop();
       if (audioContextRef.current) {
         audioContextRef.current.close();
       }
@@ -441,20 +608,42 @@ export function NewYearCountdown() {
   }));
   return (
     <section className="py-20 px-4 bg-gradient-to-b from-background via-midnight/30 to-background relative overflow-hidden">
-      {/* Sound toggle button */}
-      <motion.button
-        onClick={toggleSound}
-        className="absolute top-4 right-4 z-20 p-3 rounded-full bg-background/80 backdrop-blur-sm border border-border hover:border-gold/50 transition-colors"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        title={soundEnabled ? "Désactiver le son" : "Activer le son des feux d'artifice"}
-      >
-        {soundEnabled ? (
-          <Volume2 className="w-5 h-5 text-gold" />
-        ) : (
-          <VolumeX className="w-5 h-5 text-muted-foreground" />
-        )}
-      </motion.button>
+      {/* Audio controls */}
+      <div className="absolute top-4 right-4 z-20 flex gap-2">
+        {/* Music toggle button */}
+        <motion.button
+          onClick={toggleMusic}
+          className={`p-3 rounded-full bg-background/80 backdrop-blur-sm border transition-colors ${
+            musicEnabled ? 'border-gold/50 bg-gold/10' : 'border-border hover:border-gold/50'
+          }`}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          title={musicEnabled ? "Désactiver la musique" : "Activer la musique festive"}
+        >
+          {musicEnabled ? (
+            <Music className="w-5 h-5 text-gold" />
+          ) : (
+            <Music2 className="w-5 h-5 text-muted-foreground" />
+          )}
+        </motion.button>
+        
+        {/* Sound toggle button */}
+        <motion.button
+          onClick={toggleSound}
+          className={`p-3 rounded-full bg-background/80 backdrop-blur-sm border transition-colors ${
+            soundEnabled ? 'border-gold/50 bg-gold/10' : 'border-border hover:border-gold/50'
+          }`}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          title={soundEnabled ? "Désactiver les explosions" : "Activer le son des feux d'artifice"}
+        >
+          {soundEnabled ? (
+            <Volume2 className="w-5 h-5 text-gold" />
+          ) : (
+            <VolumeX className="w-5 h-5 text-muted-foreground" />
+          )}
+        </motion.button>
+      </div>
       {/* Animated confetti */}
       {confettiParticles.map((particle, i) => (
         <Confetti key={i} delay={particle.delay} left={particle.left} />
