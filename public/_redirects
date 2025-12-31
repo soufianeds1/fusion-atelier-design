@@ -1,2 +1,5 @@
-# Redirect old WordPress QR code URL to new PDF location
-/wp-content/uploads/MENU.pdf /MENU.pdf 301
+# Redirect old WordPress QR code URL to external PDF
+/wp-content/uploads/MENU.pdf https://morello-paris.fr/MENU.pdf 301
+
+# Redirect local MENU.pdf to external URL
+/MENU.pdf https://morello-paris.fr/MENU.pdf 301
