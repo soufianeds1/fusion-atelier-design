@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, AlertTriangle, Sparkles, PartyPopper } from "lucide-react";
+import { MessageCircle, AlertTriangle, Sparkles, PartyPopper, Volume2, VolumeX } from "lucide-react";
 
 interface TimeLeft {
   days: number;
@@ -9,6 +9,65 @@ interface TimeLeft {
   minutes: number;
   seconds: number;
 }
+
+// Synthesized firework explosion sound using Web Audio API
+const createExplosionSound = (audioContext: AudioContext, volume: number = 0.3) => {
+  const now = audioContext.currentTime;
+  
+  // Create noise for explosion
+  const noiseBuffer = audioContext.createBuffer(1, audioContext.sampleRate * 0.5, audioContext.sampleRate);
+  const noiseData = noiseBuffer.getChannelData(0);
+  for (let i = 0; i < noiseData.length; i++) {
+    noiseData[i] = (Math.random() * 2 - 1) * Math.exp(-i / (audioContext.sampleRate * 0.1));
+  }
+  
+  const noiseSource = audioContext.createBufferSource();
+  noiseSource.buffer = noiseBuffer;
+  
+  // Lowpass filter for boom effect
+  const filter = audioContext.createBiquadFilter();
+  filter.type = 'lowpass';
+  filter.frequency.setValueAtTime(1000, now);
+  filter.frequency.exponentialRampToValueAtTime(100, now + 0.3);
+  
+  // Gain envelope
+  const gainNode = audioContext.createGain();
+  gainNode.gain.setValueAtTime(volume, now);
+  gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+  
+  // Add some crackle with high frequency
+  const crackleBuffer = audioContext.createBuffer(1, audioContext.sampleRate * 0.3, audioContext.sampleRate);
+  const crackleData = crackleBuffer.getChannelData(0);
+  for (let i = 0; i < crackleData.length; i++) {
+    crackleData[i] = (Math.random() * 2 - 1) * Math.exp(-i / (audioContext.sampleRate * 0.05)) * (Math.random() > 0.7 ? 1 : 0);
+  }
+  
+  const crackleSource = audioContext.createBufferSource();
+  crackleSource.buffer = crackleBuffer;
+  
+  const crackleFilter = audioContext.createBiquadFilter();
+  crackleFilter.type = 'highpass';
+  crackleFilter.frequency.value = 2000;
+  
+  const crackleGain = audioContext.createGain();
+  crackleGain.gain.setValueAtTime(volume * 0.5, now);
+  crackleGain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+  
+  // Connect nodes
+  noiseSource.connect(filter);
+  filter.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+  
+  crackleSource.connect(crackleFilter);
+  crackleFilter.connect(crackleGain);
+  crackleGain.connect(audioContext.destination);
+  
+  // Play
+  noiseSource.start(now);
+  crackleSource.start(now + 0.05);
+  noiseSource.stop(now + 0.5);
+  crackleSource.stop(now + 0.35);
+};
 
 // Firework explosion component with multiple layers
 const Firework = ({ delay, x, y }: { delay: number; x: string; y: string }) => {
@@ -224,6 +283,73 @@ const FloatingSparkle = ({ delay, x, y }: { delay: number; x: string; y: string 
 
 export function NewYearCountdown() {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [soundEnabled, setSoundEnabled] = useState(false);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const soundIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Initialize audio context on user interaction
+  const initAudio = useCallback(() => {
+    if (!audioContextRef.current) {
+      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+    }
+    return audioContextRef.current;
+  }, []);
+
+  // Toggle sound
+  const toggleSound = useCallback(() => {
+    if (!soundEnabled) {
+      const ctx = initAudio();
+      if (ctx.state === 'suspended') {
+        ctx.resume();
+      }
+      setSoundEnabled(true);
+    } else {
+      setSoundEnabled(false);
+    }
+  }, [soundEnabled, initAudio]);
+
+  // Play random explosion sounds
+  useEffect(() => {
+    if (soundEnabled && audioContextRef.current) {
+      const playRandomExplosion = () => {
+        if (audioContextRef.current && audioContextRef.current.state === 'running') {
+          const volume = 0.1 + Math.random() * 0.15; // Random volume for variety
+          createExplosionSound(audioContextRef.current, volume);
+        }
+      };
+
+      // Play explosions at random intervals
+      const scheduleNextExplosion = () => {
+        const delay = 800 + Math.random() * 2000; // Between 0.8s and 2.8s
+        soundIntervalRef.current = setTimeout(() => {
+          playRandomExplosion();
+          scheduleNextExplosion();
+        }, delay);
+      };
+
+      // Start with an initial explosion
+      playRandomExplosion();
+      scheduleNextExplosion();
+
+      return () => {
+        if (soundIntervalRef.current) {
+          clearTimeout(soundIntervalRef.current);
+        }
+      };
+    }
+  }, [soundEnabled]);
+
+  // Cleanup audio context on unmount
+  useEffect(() => {
+    return () => {
+      if (soundIntervalRef.current) {
+        clearTimeout(soundIntervalRef.current);
+      }
+      if (audioContextRef.current) {
+        audioContextRef.current.close();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -315,6 +441,20 @@ export function NewYearCountdown() {
   }));
   return (
     <section className="py-20 px-4 bg-gradient-to-b from-background via-midnight/30 to-background relative overflow-hidden">
+      {/* Sound toggle button */}
+      <motion.button
+        onClick={toggleSound}
+        className="absolute top-4 right-4 z-20 p-3 rounded-full bg-background/80 backdrop-blur-sm border border-border hover:border-gold/50 transition-colors"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        title={soundEnabled ? "Désactiver le son" : "Activer le son des feux d'artifice"}
+      >
+        {soundEnabled ? (
+          <Volume2 className="w-5 h-5 text-gold" />
+        ) : (
+          <VolumeX className="w-5 h-5 text-muted-foreground" />
+        )}
+      </motion.button>
       {/* Animated confetti */}
       {confettiParticles.map((particle, i) => (
         <Confetti key={i} delay={particle.delay} left={particle.left} />
