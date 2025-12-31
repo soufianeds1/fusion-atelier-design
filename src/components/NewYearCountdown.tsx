@@ -10,6 +10,76 @@ interface TimeLeft {
   seconds: number;
 }
 
+// Firework explosion component
+const Firework = ({ delay, x, y }: { delay: number; x: string; y: string }) => {
+  const colors = [
+    "hsl(45, 100%, 60%)", // Gold
+    "hsl(0, 70%, 50%)",   // Wine red
+    "hsl(30, 90%, 55%)",  // Orange
+    "hsl(280, 70%, 60%)", // Purple
+    "hsl(180, 70%, 50%)", // Cyan
+  ];
+  const particleCount = 12;
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  
+  return (
+    <div className="absolute" style={{ left: x, top: y }}>
+      {Array.from({ length: particleCount }).map((_, i) => {
+        const angle = (i / particleCount) * 360;
+        const distance = 60 + Math.random() * 40;
+        const radians = (angle * Math.PI) / 180;
+        const endX = Math.cos(radians) * distance;
+        const endY = Math.sin(radians) * distance;
+        
+        return (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 rounded-full"
+            style={{ 
+              background: color,
+              boxShadow: `0 0 6px ${color}, 0 0 12px ${color}`,
+            }}
+            initial={{ x: 0, y: 0, opacity: 0, scale: 0 }}
+            animate={{ 
+              x: [0, endX],
+              y: [0, endY],
+              opacity: [0, 1, 1, 0],
+              scale: [0, 1.5, 1, 0],
+            }}
+            transition={{ 
+              duration: 1.2,
+              delay: delay,
+              repeat: Infinity,
+              repeatDelay: 3 + Math.random() * 2,
+              ease: "easeOut"
+            }}
+          />
+        );
+      })}
+      {/* Center flash */}
+      <motion.div
+        className="absolute w-4 h-4 rounded-full -translate-x-1/2 -translate-y-1/2"
+        style={{ 
+          background: "white",
+          boxShadow: `0 0 20px white, 0 0 40px ${color}`,
+        }}
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ 
+          opacity: [0, 1, 0],
+          scale: [0, 2, 0],
+        }}
+        transition={{ 
+          duration: 0.4,
+          delay: delay,
+          repeat: Infinity,
+          repeatDelay: 3 + Math.random() * 2,
+          ease: "easeOut"
+        }}
+      />
+    </div>
+  );
+};
+
 // Confetti particle component
 const Confetti = ({ delay, left }: { delay: number; left: string }) => (
   <motion.div
@@ -141,6 +211,12 @@ export function NewYearCountdown() {
     y: `${10 + Math.random() * 80}%`
   }));
 
+  // Generate firework positions
+  const fireworks = Array.from({ length: 6 }, (_, i) => ({
+    delay: i * 0.8,
+    x: `${15 + Math.random() * 70}%`,
+    y: `${10 + Math.random() * 40}%`
+  }));
   return (
     <section className="py-20 px-4 bg-gradient-to-b from-background via-midnight/30 to-background relative overflow-hidden">
       {/* Animated confetti */}
@@ -151,6 +227,11 @@ export function NewYearCountdown() {
       {/* Floating sparkles */}
       {sparkles.map((sparkle, i) => (
         <FloatingSparkle key={i} delay={sparkle.delay} x={sparkle.x} y={sparkle.y} />
+      ))}
+
+      {/* Fireworks */}
+      {fireworks.map((firework, i) => (
+        <Firework key={i} delay={firework.delay} x={firework.x} y={firework.y} />
       ))}
 
       {/* Decorative elements with animation */}
