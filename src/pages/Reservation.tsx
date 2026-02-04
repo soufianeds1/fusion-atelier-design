@@ -356,7 +356,7 @@ const Reservation = () => {
                       </div>
 
                       <a
-                        href={`https://www.paypal.com/paypalme/LEMORELLO/${parseInt(formData.guests) * 10}EUR`}
+                        href={`https://www.paypal.me/Malikadeida/${parseInt(formData.guests) * 10}EUR`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center justify-center gap-2 w-full py-3 bg-[#0070ba] hover:bg-[#005ea6] text-white font-medium rounded-sm transition-colors"
