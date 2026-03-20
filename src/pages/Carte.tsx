@@ -7,47 +7,71 @@ import { FileText } from "lucide-react";
 
 const menuCategories = [
   {
-    id: "formule",
-    name: "Formule Ramadan",
-    description: "Entrée · Plat ou Plat · Dessert — 49€/pers. (Lait, dattes et chorba ou harira inclus)",
-    items: [],
-  },
-  {
-    id: "entrees",
-    name: "Entrées",
-    description: "Au choix dans la formule",
+    id: "antipasti",
+    name: "Antipasti",
+    description: "Nos entrées italiennes",
     items: [
-      { name: "Burrata Classique", description: "Burrata crémeuse, roquette, tomates cerise, crème balsamique, pesto", price: "" },
-      { name: "Burrata Truffe Miel", description: "Burrata crémeuse, miel, truffe, tomate cerise, roquette, crème", price: "" },
-      { name: "Carpaccio de Bœuf", description: "Émincé de bœuf tranché, roquette, pesto basilic, copeaux de parmesan, crème balsamique", price: "" },
-      { name: "Foie Gras", description: "Pain toasté, tranche de foie gras, chutney de figue", price: "" },
-      { name: "Salade César", description: "Laitue romaine, tomates cerise, poulet pané, croûtons, parmesan, sauce César maison", price: "" },
+      { name: "Burrata Classique", description: "Burrata crémeuse, roquette, tomates cerise, crème balsamique, pesto", price: "16€" },
+      { name: "Burrata Truffe Miel", description: "Burrata crémeuse, miel, truffe, tomate cerise, roquette, crème", price: "19€" },
+      { name: "Carpaccio de Bœuf", description: "Émincé de bœuf tranché, roquette, pesto basilic, copeaux de parmesan, crème balsamique", price: "17€" },
+      { name: "Foie Gras", description: "Pain toasté, tranche de foie gras, chutney de figue", price: "19€" },
+      { name: "Salade César", description: "Laitue romaine, tomates cerise, poulet pané, croûtons, parmesan, sauce César maison", price: "15€" },
     ],
   },
   {
-    id: "plats",
-    name: "Plats",
-    description: "Au choix dans la formule",
+    id: "carne",
+    name: "Carne",
+    description: "Nos viandes sélectionnées",
     items: [
-      { name: "Filetto al Pepe Verde", description: "Filet de bœuf servi avec une sauce au poivre vert", price: "" },
-      { name: "Scaloppina Milanaise", description: "Escalope de poulet panée avec roquette, copeaux de parmesan et sauce napolitaine", price: "" },
-      { name: "Scaloppina ai Funghi", description: "Escalope de poulet à la crème de champignons", price: "" },
-      { name: "Rigatoni Alfredo", description: "Rigatoni, poulet, champignons et une sauce crémeuse", price: "" },
-      { name: "Filetto di Pesce", description: "Filet de bar cuit à la plancha avec une sauce vierge", price: "" },
-      { name: "Ravioli al Tartufo", description: "Pâtes farcies à la truffe, accompagnées d'une sauce crémeuse truffée", price: "" },
+      { name: "Filetto del Capo (Rossini)", description: "Filet de bœuf accompagné d'une sauce au foie gras", price: "38€" },
+      { name: "Filetto alla Senape", description: "Filet de bœuf, sauce à la moutarde à l'ancienne, stracciatella et oignons caramélisés", price: "34€" },
+      { name: "Filetto al Tartufo", description: "Filet de bœuf nappé d'une sauce à la truffe", price: "36€" },
+      { name: "Filetto al Pepe Verde", description: "Filet de bœuf servi avec une sauce au poivre vert", price: "32€" },
+      { name: "Scaloppina Milanaise", description: "Escalope de poulet panée avec roquette, copeaux de parmesan et sauce napolitaine", price: "22€" },
+      { name: "Scaloppina ai Funghi", description: "Escalope de poulet à la crème de champignons", price: "22€" },
     ],
   },
   {
-    id: "accompagnements",
-    name: "Accompagnements",
-    description: "1 accompagnement au choix inclus",
+    id: "pasta",
+    name: "Pasta",
+    description: "Nos pâtes artisanales",
     items: [
-      { name: "Pâtes à la crème", description: "", price: "" },
-      { name: "Riz sauce champignons", description: "", price: "" },
-      { name: "Frites", description: "", price: "" },
-      { name: "Légumes sautés à la plancha", description: "", price: "" },
-      { name: "Pomme grenaille", description: "", price: "" },
-      { name: "Purée de pommes de terre", description: "", price: "" },
+      { name: "Rigatoni al Norma", description: "Rigatoni, tomates cerise, aubergine, ail, émincé de bœuf, ricotta", price: "19€" },
+      { name: "Linguine alla Bolognese", description: "Linguine à la sauce tomate et à la viande hachée", price: "18€" },
+      { name: "Linguine al Pesto e Burrata", description: "Linguine au pesto de basilic, surmontée de sa burrata crémeuse", price: "19€" },
+      { name: "Rigatoni Alfredo", description: "Rigatoni, poulet, champignons et une sauce crémeuse", price: "19€" },
+      { name: "Ravioli al Tartufo", description: "Pâtes farcies à la truffe, accompagnées d'une sauce crémeuse truffée", price: "22€" },
+    ],
+  },
+  {
+    id: "pesce",
+    name: "Pesce",
+    description: "Nos poissons et fruits de mer",
+    items: [
+      { name: "Filetto di Pesce", description: "Filet de bar cuit à la plancha avec une sauce vierge", price: "26€" },
+    ],
+  },
+  {
+    id: "pizze",
+    name: "Pizze",
+    description: "Nos pizzas au feu de bois",
+    items: [
+      { name: "Tartufata", description: "Crème de truffe, Stracciatella, champignons, Mozzarella Fior Di Latte, Roquette", price: "19€" },
+      { name: "La Bresaola", description: "Sauce tomate, Bresaola, Mozzarella Fior Di Latte, basilic, roquette", price: "18€" },
+      { name: "La Pollo & Pesto", description: "Pesto, émincé de poulet, Stracciatella, tomates cerises", price: "18€" },
+    ],
+  },
+  {
+    id: "contorni",
+    name: "Contorni",
+    description: "Nos accompagnements",
+    items: [
+      { name: "Pâtes à la crème", description: "", price: "6€" },
+      { name: "Riz sauce champignons", description: "", price: "6€" },
+      { name: "Frites", description: "", price: "5€" },
+      { name: "Légumes sautés à la plancha", description: "", price: "7€" },
+      { name: "Pomme grenaille", description: "", price: "6€" },
+      { name: "Purée de pommes de terre", description: "", price: "6€" },
     ],
   },
   {
@@ -84,9 +108,7 @@ const menuCategories = [
   },
 ];
 
-const contorni: string[] = [];
-
-const categories = ["formule", "entrees", "plats", "accompagnements", "boissons", "mocktails", "lounge"];
+const categories = ["antipasti", "carne", "pasta", "pesce", "pizze", "contorni", "boissons", "mocktails", "lounge"];
 
 const hookahMenu = {
   happyHour: {
@@ -111,13 +133,12 @@ const hookahMenu = {
 };
 
 const Carte = () => {
-  const [activeCategory, setActiveCategory] = useState<string>("formule");
+  const [activeCategory, setActiveCategory] = useState<string>("antipasti");
 
   useEffect(() => {
-    // Scroll to section based on URL hash or default to antipasti
     const timer = setTimeout(() => {
       const hash = window.location.hash.replace("#", "");
-      const targetId = hash && categories.includes(hash) ? hash : "formule";
+      const targetId = hash && categories.includes(hash) ? hash : "antipasti";
       setActiveCategory(targetId);
       const element = document.getElementById(targetId);
       if (element) {
@@ -146,20 +167,14 @@ const Carte = () => {
         {/* Hero */}
         <section className="py-20 bg-hero-gradient">
           <div className="container mx-auto px-4 lg:px-8 text-center">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <span className="text-accent text-lg">☪</span>
-              <p className="text-accent uppercase tracking-[0.3em] text-sm font-medium">
-                Spécial Ramadan
-              </p>
-              <span className="text-accent text-lg">☪</span>
-            </div>
+            <p className="text-accent uppercase tracking-[0.3em] text-sm font-medium mb-4">
+              Restaurant Italien
+            </p>
             <h1 className="font-display text-5xl md:text-6xl font-semibold mb-4">
               La Carte
             </h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-6">
-              Formule Ramadan : Entrée · Plat ou Plat · Dessert — <span className="text-accent font-semibold">49€/pers.</span>
-              <br />
-              <span className="text-sm">Lait, dattes et chorba ou harira inclus</span>
+              Découvrez notre sélection de plats italiens authentiques, préparés avec des produits frais et de saison.
             </p>
             <Button 
               variant="outline" 
@@ -218,18 +233,7 @@ const Carte = () => {
                   </div>
 
                   {/* Items */}
-                  {category.id === "formule" ? (
-                    <div className="p-8 bg-card border border-accent/30 rounded-lg text-center shadow-[0_0_40px_hsl(43_68%_52%/0.08)]">
-                      <span className="text-accent text-3xl mb-4 block">☪</span>
-                      <p className="font-display text-4xl font-semibold text-accent mb-2">49€</p>
-                      <p className="text-muted-foreground">par personne</p>
-                      <div className="mt-6 flex flex-wrap justify-center gap-3 text-sm text-muted-foreground">
-                        <span className="px-3 py-1 bg-muted rounded-sm">🥛 Lait</span>
-                        <span className="px-3 py-1 bg-muted rounded-sm">🌴 Dattes</span>
-                        <span className="px-3 py-1 bg-muted rounded-sm">🍲 Chorba ou Harira</span>
-                      </div>
-                    </div>
-                  ) : category.id === "lounge" ? (
+                  {category.id === "lounge" ? (
                     <div className="space-y-10">
                       {/* Formule Soirée */}
                       <div className="p-6 bg-card border border-border rounded-lg">

@@ -32,8 +32,8 @@ export function HeroSection() {
             className="font-display text-5xl md:text-7xl lg:text-8xl font-semibold leading-tight opacity-0 animate-fade-in"
             style={{ animationDelay: "0.4s" }}
           >
-            Ramadan<br />
-            <span className="italic text-accent">Moubarak</span>
+            Le Morello<br />
+            <span className="italic text-accent">Paris</span>
           </h1>
 
           {/* Subtitle */}
@@ -41,8 +41,8 @@ export function HeroSection() {
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed opacity-0 animate-fade-in"
             style={{ animationDelay: "0.6s" }}
           >
-            Partagez l'Iftar dans un cadre d'exception. Formule spéciale Ramadan 
-            à 49€ avec chorba, dattes et nos meilleures créations italiennes.
+            Une expérience culinaire italienne d'exception au cœur du 8ème arrondissement.
+            Saveurs authentiques, cadre raffiné et moments inoubliables.
           </p>
 
           {/* CTA Buttons */}
