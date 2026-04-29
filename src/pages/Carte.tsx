@@ -13,7 +13,6 @@ const menuCategories = [
     items: [
       { name: "Burrata Classica", description: "Burrata crémeuse, roquette, tomates cerise, crème balsamique, pesto", price: "16€" },
       { name: "Burrata Tartufo et Miel", description: "Burrata crémeuse, miel, truffe, tomate cerise, roquette, crème", price: "19€" },
-      { name: "Burrata Violetta", description: "Burrata violette, tomate, huile d'olive, pesto, roquette, crème", price: "17€" },
       { name: "Burrata Avalto", description: "Burrata enrobée d'une pâte, jambon, sauce tomate, crème balsamique", price: "23€" },
       { name: "Mozzarella Frita", description: "Bouchée de mozzarella croquante sur son lit de pesto rosso et verde", price: "17€" },
       { name: "Foie Gras", description: "Pain toasté, tranche de foie gras, chutney de figue", price: "19€" },
@@ -70,7 +69,6 @@ const menuCategories = [
       { name: "Rigatoni al Salmone", description: "Rigatoni, saumon, tomates cerises, crème, ail basilic, huile d'olive", price: "27€" },
       { name: "Rigatoni Alfredo", description: "Rigatoni, poulet, champignons et une sauce crémeuse", price: "27€" },
       { name: "Rigatoni al Norma", description: "Rigatoni, tomates cerise, aubergine, ail, émincé de bœuf, ricotta", price: "28€" },
-      { name: "Pacchieri al Polpette", description: "Paccheri accompagnés de boulettes de viande et sauce tomate", price: "28€" },
     ],
   },
   {
@@ -112,6 +110,10 @@ const menuCategories = [
       { name: "Pain Perdu", description: "Nutella ou Caramel", price: "12€" },
       { name: "Fondant au Chocolat", description: "Accompagné de crème anglaise et chantilly", price: "12€" },
       { name: "Cheese Cake", description: "Fruits rouges ou Mangue", price: "12€" },
+      { name: "Crème Brûlée", description: "", price: "12€" },
+      { name: "Mousse au Chocolat", description: "", price: "12€" },
+      { name: "Panna Cotta", description: "", price: "12€" },
+      { name: "Mille Feuille Renversé", description: "", price: "16€" },
     ],
   },
   {
@@ -166,9 +168,9 @@ const hookahMenu = {
     title: "Formule Soirée",
     items: [
       { name: "Hookah + Soft", price: "25€" },
-      { name: "Hookah + Soft Premium", price: "30€" },
+      { name: "Hookah + Soft Premium*", price: "30€" },
       { name: "Hookah Quasar + Soft", price: "35€" },
-      { name: "Hookah Quasar + Soft Premium", price: "40€" },
+      { name: "Hookah Quasar + Soft Premium*", price: "40€" },
     ],
   },
   saveurs: ["Hawai", "Love 66", "Mi Amor", "Lady Killer", "Menthe", "Pomme"],
