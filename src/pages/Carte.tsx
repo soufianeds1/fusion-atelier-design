@@ -308,7 +308,10 @@ const Carte = () => {
                           ))}
                         </div>
                         <p className="text-center text-accent font-semibold mt-4 pt-4 border-t border-accent/30">
-                          +5€ le week-end sur les formules
+                          +5€ le week-end et soirs d'événement sur les formules
+                        </p>
+                        <p className="text-center text-muted-foreground text-sm mt-3">
+                          *Soft Premium : cocktail, thé, Red Bull, thé glacé
                         </p>
                       </div>
 
@@ -360,6 +363,8 @@ const Carte = () => {
                 Tous nos plats sont préparés sur place avec des produits frais et de saison.
                 <br />
                 Merci de nous signaler toute allergie ou intolérance alimentaire.
+                <br />
+                Pour les groupes de plus de 6 personnes, merci de nous contacter à l'avance.
               </p>
             </div>
           </div>
