@@ -21,6 +21,8 @@ const menuCategories = [
       { name: "Carpaccio di Manzo", description: "Émincé de bœuf tranché, roquette, pesto basilic, copeaux de parmesan, crème balsamique (Supplément burrata +7€)", price: "19€" },
       { name: "4 Mini Pizza", description: "Chèvre, truffe, saumon, margarita", price: "18€" },
       { name: "Insalata César", description: "Laitue romaine, tomates cerise, poulet pané, croûtons, parmesan, sauce César maison, crème balsamique", price: "21€" },
+      { name: "Assiette de Charcuteries à Partager", description: "Sélection de charcuteries d'exception", price: "29€" },
+      { name: "Calamari Fritti", description: "Assiette de calamars frits, spicy mayo", price: "17€" },
     ],
   },
   {
@@ -96,6 +98,7 @@ const menuCategories = [
       { name: "Purée de pommes de terre", description: "", price: "" },
       { name: "Frites", description: "", price: "" },
       { name: "Pâtes à la crème", description: "", price: "" },
+      { name: "Salade", description: "", price: "" },
       { name: "Légumes sautés à la plancha", description: "", price: "" },
       { name: "Riz sauce champignons", description: "", price: "" },
     ],
@@ -105,15 +108,15 @@ const menuCategories = [
     name: "Dolce",
     description: "Nos desserts",
     items: [
-      { name: "Tiramisu", description: "Café, Nutella, Pistache, Fruits rouges, Mangue", price: "12€" },
+      { name: "Tiramisu", description: "Café, Nutella, Pistache, Fruits rouges, Mangue, Figue", price: "12€" },
       { name: "Pavlova Fruits Rouges", description: "Meringue concassée, crème montée, coulis et fruits rouges frais", price: "18€" },
       { name: "Pain Perdu", description: "Nutella ou Caramel", price: "12€" },
       { name: "Fondant au Chocolat", description: "Accompagné de crème anglaise et chantilly", price: "12€" },
       { name: "Cheese Cake", description: "Fruits rouges ou Mangue", price: "12€" },
-      { name: "Crème Brûlée", description: "", price: "12€" },
-      { name: "Mousse au Chocolat", description: "", price: "12€" },
-      { name: "Panna Cotta", description: "", price: "12€" },
-      { name: "Mille Feuille Renversé", description: "", price: "16€" },
+      { name: "Crème Brûlée", description: "Crème vanillée, sucre caramélisé craquant", price: "12€" },
+      { name: "Mousse au Chocolat", description: "Nuage de chocolat intense et gourmand", price: "12€" },
+      { name: "Panna Cotta", description: "Douceur vanillée, surmontée de fruits rouges", price: "12€" },
+      { name: "Mille Feuille Renversé", description: "Feuilleté croustillant, ganache vanillée", price: "16€" },
     ],
   },
   {
@@ -140,7 +143,7 @@ const menuCategories = [
       { name: "Virgin Mojito", description: "Limonade, menthe, sucre de canne, citron vert (Fraise ou Passion +2€)", price: "10€" },
       { name: "Le Rose Bonbon", description: "Litchi, framboise, citron vert", price: "10€" },
       { name: "Le Sun Set", description: "Cranberry, ananas, orange, grenadine", price: "10€" },
-      { name: "Tropical Blue", description: "Passion, ananas, curaçao", price: "10€" },
+      { name: "Blue Wave", description: "Passion, ananas, curaçao", price: "10€" },
       { name: "Piña Colada", description: "Ananas, lait de coco", price: "10€" },
     ],
   },
@@ -364,7 +367,7 @@ const Carte = () => {
                 <br />
                 Merci de nous signaler toute allergie ou intolérance alimentaire.
                 <br />
-                Pour les groupes de plus de 6 personnes, merci de nous contacter à l'avance.
+                Groupe à partir de 6 personnes : entrée + plat ou plat + dessert obligatoire.
               </p>
             </div>
           </div>
