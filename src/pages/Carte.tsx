@@ -367,7 +367,7 @@ const Carte = () => {
                 <br />
                 Merci de nous signaler toute allergie ou intolérance alimentaire.
                 <br />
-                Pour les groupes de plus de 6 personnes, merci de nous contacter à l'avance.
+                Groupe à partir de 6 personnes : entrée + plat ou plat + dessert obligatoire.
               </p>
             </div>
           </div>
