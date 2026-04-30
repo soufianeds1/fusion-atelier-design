@@ -21,6 +21,8 @@ const menuCategories = [
       { name: "Carpaccio di Manzo", description: "Émincé de bœuf tranché, roquette, pesto basilic, copeaux de parmesan, crème balsamique (Supplément burrata +7€)", price: "19€" },
       { name: "4 Mini Pizza", description: "Chèvre, truffe, saumon, margarita", price: "18€" },
       { name: "Insalata César", description: "Laitue romaine, tomates cerise, poulet pané, croûtons, parmesan, sauce César maison, crème balsamique", price: "21€" },
+      { name: "Assiette de Charcuteries à Partager", description: "Sélection de charcuteries d'exception", price: "29€" },
+      { name: "Calamari Fritti", description: "Assiette de calamars frits, spicy mayo", price: "17€" },
     ],
   },
   {
